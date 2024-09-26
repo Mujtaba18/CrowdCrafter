@@ -1,0 +1,17 @@
+const mongoose = require('mongoose');
+
+const feedbackSchema = mongoose.Schema({
+    content: String,
+    user: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
+    event: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event',
+    }]
+}, {
+    timestamps: true
+});
+
+module.exports = mongoose.model('Feedback', feedbackSchema);
