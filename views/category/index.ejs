@@ -1,0 +1,29 @@
+<h1>Categories</h1>
+
+<table class="table table-hover">
+    <thead class="table-light">
+    <tr>
+        <th>Name</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    <% categories.forEach(function(category) { %>
+        <tr>
+            <td> <a href="/category/detail?id=<%= category._id%>">
+                 <%= category.name %> </a> </td>
+            <td> <%= dayjs(category.createdAt).fromNow(true) %>  ago </td>
+            <td> <%= dayjs(category.updatedAt).fromNow(true) %> ago </td>
+            <td>
+                <a href="/category/edit?id=<%= category._id %>"> Edit </a>
+            </td>
+            <td>
+                <input type="hidden" name="id" value="<%= category._id %>">
+                <a href="/category/delete?id=<%= category._id %>"> Delete </a>
+            </td>
+        </tr>
+        <% }) %>
+</table>

@@ -10,8 +10,9 @@ router.use(express.urlencoded({extended: true}))
 const categoryCtrl = require('../controllers/category')
 
 //Routes
-router.get("/add", categoryCtrl.category_create_get)
-router.post("/add", categoryCtrl.category_create_post)
+router.get("/add", categoryCtrl.category_create_get);
+router.post("/add", categoryCtrl.category_create_post);
+router.get("/index", categoryCtrl.category_index_get);
 
 
 
