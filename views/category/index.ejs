@@ -13,8 +13,14 @@
     <tbody class="table-group-divider">
     <% categories.forEach(function(category) { %>
         <tr>
-            <td> <a href="/category/detail?id=<%= category._id%>">
-                 <%= category.name %> </a> </td>
+            <td>
+                <a href="/category/detail?id=<%= category._id %>">
+
+                    <!-- Display color circle next to the category name -->
+                    <span class="my-category-circle" data-color="<%= category.color %>"></span>
+                    <%= category.name %>
+                </a> 
+            </td>
             <td> <%= dayjs(category.createdAt).fromNow(true) %>  ago </td>
             <td> <%= dayjs(category.updatedAt).fromNow(true) %> ago </td>
             <td>
@@ -22,8 +28,32 @@
             </td>
             <td>
                 <input type="hidden" name="id" value="<%= category._id %>">
-                <a href="/category/delete?id=<%= category._id %>"> Delete </a>
+                <a href="/category/delete?id="<%= category._id %>"> Delete </a>
             </td>
         </tr>
-        <% }) %>
+    <% }) %>
+    </tbody>
 </table>
+
+<!-- JavaScript to apply the background color -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Apply background color to each category circle based on the data-color attribute
+        document.querySelectorAll('.my-category-circle').forEach(function(circle) {
+            var color = circle.getAttribute('data-color');  // Get the color from the data attribute
+            circle.style.backgroundColor = color;          // Apply the color as background
+        });
+    });
+</script>
+
+<!-- CSS to define the circle appearance -->
+<style>
+    .my-category-circle {
+        display: inline-block;
+        width: 15px;  /* Adjust the size */
+        height: 15px; /* Adjust the size */
+        border-radius: 50%;  /* Make it a circle */
+        margin-right: 8px;   /* Space between the circle and category name */
+        border: 1px solid #000; /* Optional: Border to make the circle visible */
+    }
+</style>

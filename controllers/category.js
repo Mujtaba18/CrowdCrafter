@@ -41,3 +41,4 @@ exports.category_index_get = (req, res) => {
         })
     
 }
+
