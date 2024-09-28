@@ -1,0 +1,12 @@
+<h1><%= category.name %></h1>
+
+<div> Category Color: <%= category.color %></div>
+
+<div>
+    Created At: <%= dayjs(category.createdAt).fromNow(true) %>  ago
+</div>
+
+<div>
+    Updated At: <%= dayjs(category.updatedAt).fromNow(true) %>  ago
+</div>
+

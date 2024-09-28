@@ -13,6 +13,9 @@ const categoryCtrl = require('../controllers/category')
 router.get("/add", categoryCtrl.category_create_get);
 router.post("/add", categoryCtrl.category_create_post);
 router.get("/index", categoryCtrl.category_index_get);
+router.get("/detail", categoryCtrl.category_show_get);
+router.get("/edit", categoryCtrl.category_edit_get);
+router.post("/update", categoryCtrl.category_update_post);
 
 
 

@@ -42,3 +42,39 @@ exports.category_index_get = (req, res) => {
     
 }
 
+//GET DEATILS
+exports.category_show_get = (req, res) => {
+
+    Category.findById(req.query.id)
+    //if category is received from the db:
+    .then((category) => {
+
+    res.render("category/detail", {category, dayjs });
+        
+    }).catch((err) => {
+        console.log(err);
+    });
+}
+
+
+//Update - HTTP GET and POST
+exports.category_edit_get = (req, res) => {
+    console.log(req.query.id);
+    Category.findById(req.query.id)
+    .then((category) => {
+        res.render("category/edit", {category});
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
+
+exports.category_update_post = (req, res) => {
+    Category.findByIdAndUpdate(req.body.id, req.body)
+    .then(()=> {
+        res.redirect("/category/index");
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
