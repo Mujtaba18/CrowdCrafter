@@ -78,3 +78,16 @@ exports.category_update_post = (req, res) => {
         console.log(err)
     })
 }
+
+
+//Delete - HTTP DELETE
+exports.category_delete_get = (req, res) => {
+    console.log(req.query.id);
+    Category.findByIdAndDelete(req.query.id)
+    .then(()=> {
+        res.redirect("/category/index");
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}

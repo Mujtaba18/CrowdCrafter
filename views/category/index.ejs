@@ -24,11 +24,11 @@
             <td> <%= dayjs(category.createdAt).fromNow(true) %>  ago </td>
             <td> <%= dayjs(category.updatedAt).fromNow(true) %> ago </td>
             <td>
-                <a href="/category/edit?id=<%= category._id %>"> Edit </a>
+                <a href="/category/edit?id=<%= category._id %>" class="btn btn-outline-secondary"> Edit </a>
             </td>
             <td>
                 <input type="hidden" name="id" value="<%= category._id %>">
-                <a href="/category/delete?id="<%= category._id %>"> Delete </a>
+                <a href="/category/delete?id=<%= category._id %>" class="btn btn-outline-danger"> Delete </a>
             </td>
         </tr>
     <% }) %>
