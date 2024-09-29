@@ -81,3 +81,15 @@ body{
   h1{
     color: #2348A3;
   }
+
+      
+  .categories-container {
+    display: flex;
+    flex-wrap: wrap;    
+    gap: 10px;    
+}
+
+.category-item {
+    display: flex;
+    align-items: center; /* Aligns circle and text in one line */
+}
