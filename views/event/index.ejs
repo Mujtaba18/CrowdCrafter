@@ -1,0 +1,78 @@
+<h1>Events</h1>
+<br>
+<table class="table table-hover">
+    <thead class="table-light">
+    <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+    <% events.forEach(function(event) { %>
+        <tr>
+            <td>
+                <a href="/event/detail?id=<%= events._id %>">
+                    <%= event.name %>
+                </a> 
+            </td>
+            <td> <%= event.date %> </td>
+            <td> <%= event.time %> </td>
+            <td> <%= event.description %> </td>
+
+            <td> <!-- Display all categories within a single cell -->
+                <div class="categories-container">
+                    <% event.category.forEach(categoryId => { %>
+                        <% let category = categories.find(cat => cat._id.toString() === categoryId.toString()); %>
+                        <% if (category) { %>
+                            <div class="category-item">
+                                <span class="my-category-circle" data-color="<%= category.color %>"></span>
+                                <%= category.name %>
+                            </div>
+                        <% } %>
+                    <% }) %>
+                </div>
+            </td>
+
+            <td> <%= dayjs(event.createdAt).fromNow(true) %>  ago </td>
+            <td> <%= dayjs(event.updatedAt).fromNow(true) %> ago </td>
+            <td>
+                <a href="/event/edit?id=<%= event._id %>" class="btn btn-outline-secondary"> Edit </a>
+            </td>
+            <td>
+                <input type="hidden" name="id" value="<%= event._id %>">
+                <a href="/event/delete?id=<%= event._id %>" class="btn btn-outline-danger"> Delete </a>
+            </td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+
+<!-- JavaScript to apply the background color -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Apply background color to each category circle based on the data-color attribute
+        document.querySelectorAll('.my-category-circle').forEach(function(circle) {
+            var color = circle.getAttribute('data-color');  // Get the color from the data attribute
+            circle.style.backgroundColor = color;          // Apply the color as background
+        });
+    });
+</script>
+
+<!-- CSS for improved layout -->
+<style>
+    .my-category-circle {
+        display: inline-block;
+        width: 15px;  /* Adjust the size */
+        height: 15px; /* Adjust the size */
+        border-radius: 50%;  /* Make it a circle */
+        margin-right: 8px;   /* Space between the circle and category name */
+    }
+
+</style>

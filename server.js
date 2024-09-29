@@ -30,10 +30,12 @@ app.use(express.static("public"));
 //Import Routes
 const indexRouter = require('./routes/index');
 const categoryRouter = require('./routes/category');
+const eventRouter = require('./routes/event');
 
 //Mount Routes
-app.use('/', indexRouter)
+app.use('/', indexRouter);
 app.use('/category', categoryRouter);
+app.use('/event', eventRouter);
 
 //listen on port
 app.listen(PORT, () => console.log(`running on port: ${PORT}`));

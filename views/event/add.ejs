@@ -1,0 +1,96 @@
+<h1> Add Event </h1>
+
+<form method="POST" action="/event/add" style="width: 50vw;">
+
+    <div>
+        <label class="form-label">Event Name</label>
+        <br>
+        <input type="text" name="name" required class="form-control">
+    </div>
+    <br>
+
+    <div>
+        <label class="form-label">Event Date</label>
+        <br>
+        <input type="date" name="date" required class="form-control">
+    </div>
+    <br>
+
+    <div>
+        <label class="form-label">Event Time</label>
+        <br>
+        <input type="time" name="time" required class="form-control">
+    </div>
+    <br>
+
+    <div>
+        <label class="form-label">Event Description</label>
+        <br>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+    </div>
+    <br>
+    
+    <div>
+      <label class="form-label">Category</label>
+      <div class="dropdown" style="width: 50vw;">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          Select Categories
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+          <% categories.forEach(function(category) { %>
+          <li>
+            <a class="dropdown-item" href="#">
+              <span class="my-category-circle" data-color="<%= category.color %>"></span>
+              <%= category.name %>
+            </a>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+    <br>
+      
+
+      <div>
+        <label class="form-label">Location</label>
+        <select class="form-select">
+          <option value="1">One</option>
+        </select>
+      </div>
+      <br>
+
+      <div>
+        <label class="form-label">Status</label>
+        <select class="form-select">
+          <option value="upcoming"> Upcoming </option>
+          <option value="ongoing"> Ongoing </option>
+          <option value="completed"> Completed </option>
+        </select>
+      </div>
+      <br>
+
+      <button type="submit" class="btn btn-success">Create Event</button>
+
+</form>
+
+<!-- JavaScript to apply the background color -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Apply background color to each category circle based on the data-color attribute
+      document.querySelectorAll('.my-category-circle').forEach(function(circle) {
+          var color = circle.getAttribute('data-color');  // Get the color from the data attribute
+          circle.style.backgroundColor = color;          // Apply the color as background
+      });
+  });
+</script>
+
+<!-- CSS to define the circle appearance -->
+<style>
+  .my-category-circle {
+      display: inline-block;
+      width: 15px;  /* Adjust the size */
+      height: 15px; /* Adjust the size */
+      border-radius: 50%;  /* Make it a circle */
+      margin-right: 8px;   /* Space between the circle and category name */
+  }
+</style>
