@@ -51,11 +51,13 @@ app.use(function(request, respond, next) {
 const indexRouter = require('./routes/index');
 const categoryRouter = require('./routes/category');
 const authRouter = require('./routes/auth');
+const profileRouter = require('./routes/profile');
 
 //Mount Routes
-app.use('/', indexRouter)
+app.use('/', indexRouter);
 app.use('/category', categoryRouter);
-app.use('/', authRouter)
+app.use('/', authRouter);
+app.use('/profile', profileRouter);
 
 //listen on port
 app.listen(PORT, () => console.log(`running on port: ${PORT}`));
