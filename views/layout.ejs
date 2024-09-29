@@ -22,7 +22,11 @@
     <hr>
     <div id="crowdcrafter">
         <nav>
-
+            <% if (user) { %>
+            <a href="/logout">Log Out</a>
+            <% } else { %>
+                <a href="/auth/google">Sign In</a>
+                <% } %>
         </nav>
         <br>
 
