@@ -26,18 +26,7 @@ exports.location_create_post = (req, res) => {
   location
     .save()
     .then(() => {
-      console.log(req.body.event)
-      req.body.event.forEach((event) => {
-        Event.findById(event)
-          .then((event) => {
-            event.location.push(location)
-            event.save()
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      })
-      res.redirect('/location/index')
+      res.redirect('/location')
     })
     .catch((err) => {
       console.log(err)
@@ -80,7 +69,6 @@ exports.location_update_get = (req, res) => {
 }
 
 exports.location_update_post = (req, res) => {
-  console.log(req.body.id)
   Location.findByIdAndUpdate(req.body.id, req.body)
     .then(() => {
       res.redirect('/location')

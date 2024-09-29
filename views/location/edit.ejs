@@ -11,7 +11,8 @@
 
   <div>
     <label>availability:</label>
-    <select name="availability"  aria-valuenow="<%= location.availability %>">
+    <select name="availability"  aria-valuenow="current">
+      <option value="current"><%= location.availability %></option>
       <option value="true" >available</option>
       <option value="false">not available</option>
     </select>
@@ -35,7 +36,8 @@
 
   <div>
     <label>Indoor:</label>
-    <select name="indoor" class="form-control" aria-valuenow="<%= location.indoor %>" >
+    <select name="indoor" class="form-control" aria-valuenow="current" >
+      <option value="current"><%= location.availability %></option>
       <option value="true" >true</option>
       <option value="false">false</option>
     </select>
