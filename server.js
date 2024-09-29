@@ -30,11 +30,13 @@ app.use(express.static('public'))
 //Import Routes
 const indexRouter = require('./routes/index')
 const categoryRouter = require('./routes/category')
+const eventRouter = require('./routes/event')
 const locationRouter = require('./routes/location')
 
 //Mount Routes
 app.use('/', indexRouter)
 app.use('/category', categoryRouter)
+app.use('/event', eventRouter)
 app.use('/location', locationRouter)
 
 //listen on port

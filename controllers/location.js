@@ -18,7 +18,6 @@ exports.location_create_get = (req, res) => {
 }
 
 exports.location_create_post = (req, res) => {
-  console.log(req.body)
   let location = new Location(req.body)
 
   // save location
@@ -46,7 +45,6 @@ exports.location_index_get = (req, res) => {
 }
 
 exports.location_show_get = (req, res) => {
-  console.log(req.query.id)
   Location.findById(req.query.id)
     .populate('event')
     .then((location) => {
@@ -58,7 +56,6 @@ exports.location_show_get = (req, res) => {
 }
 
 exports.location_update_get = (req, res) => {
-  console.log(req.query.id)
   Location.findById(req.query.id)
     .then((location) => {
       res.render('location/edit', { location })

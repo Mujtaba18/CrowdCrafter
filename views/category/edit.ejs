@@ -1,0 +1,21 @@
+<h1> Edit Category </h1>
+
+<form method="POST" action="/category/update">
+
+    <div>
+        <label class="form-label">Name</label>
+        <input type="text" name="name" value="<%= category.name %>" class="form-control" />
+    </div>
+
+    <div>
+        <label class="form-label">Color</label>
+        <input type="color" name="color" class="form-control form-control-color" value="<%= category.color %>" />
+    </div>
+
+
+    <br>
+
+<input type="hidden" name="id" value="<%= category._id %>">
+
+<button type="submit" class="btn btn-success"> Update Category </button>
+</form>

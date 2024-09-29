@@ -1,12 +1,18 @@
-<h2>Add Category</h2>
+<h1>Add Category</h1>
 
-<form method="POST" action="/category/add">
+<form method="POST" action="/category/add" style="width: 50vw;">
     <div>
-        <label>Name:</label>
+        <label class="form-label">Name</label>
         <br>
-        <input type="text" name="name" required>
+        <input type="text" name="name" required class="form-control">
+    </div>
+    <br>
+    <div>
+        <label for="color" class="form-label">Category color</label>
+        <input type="color" name="color" class="form-control form-control-color" value="#374375">
+
     </div>
 
     <br>
-    <button type="submit">Create Category</button>
+    <button type="submit" class="btn btn-success">Create Category</button>
 </form>
