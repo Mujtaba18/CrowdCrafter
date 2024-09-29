@@ -7,7 +7,7 @@ const expressLayouts = require('express-ejs-layouts')
 const passport = require('passport')
 
 //require and initalize dotenv
-// require('dotenv').config();
+require('dotenv').config()
 
 //PORT conf
 const PORT = 5010

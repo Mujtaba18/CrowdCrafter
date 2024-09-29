@@ -1,0 +1,32 @@
+<table>
+  <tr>
+    <th>name:</th>
+    <th>capacity:</th>
+    <th>availability:</th>
+    <th>city:</th>
+    <th>E-mail:</th>
+    <th>Phone number:</th>
+    <th>Indoor:</th>
+    <th>Events:</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  <% location.forEach(function(location){ %>
+  <tr>
+    <td>
+      <a href="/location/detail?id=<%=location._id%>"><%= location.names %></a>
+    </td>
+    <td><%= location.capacity %></td>
+    <td><%= location.availability %></td>
+    <td><%= location.city %></td>
+    <td><%= location.bookingEmail %></td>
+    <td><%= location.bookingPhone %></td>
+    <td><%= location.indoor %></td>
+    <td><%= location.event %></td>
+    <td><a href="/location/edit?id=<%= location._id %>">Edit</a></td>
+      <td><a href="/location/delete?id=<%= location._id %>">Delete</a></td>
+  </tr>
+  <%})%>
+</table>
+<a href="/location/add">
+<button>add location</button></a>

@@ -1,0 +1,48 @@
+<form action="/location/edit" method="post">
+  <div>
+    <label>name:</label>
+    <input type="text" name="names" value="<%= location.names %>" >
+  </div>
+
+  <div>
+    <label>capacity:</label>
+    <input type="number" name="capacity" value="<%= location.capacity %>">
+  </div>
+
+  <div>
+    <label>availability:</label>
+    <select name="availability"  aria-valuenow="<%= location.availability %>">
+      <option value="true" >available</option>
+      <option value="false">not available</option>
+    </select>
+    
+  </div>
+
+  <div>
+    <label>city:</label>
+    <input type="text" name="city" value="<%= location.city %>">
+  </div>
+
+  <div>
+    <label>E-mail:</label>
+    <input type="email" name="bookingEmail" value="<%= location.bookingEmail %>">
+  </div>
+
+  <div>
+    <label>Phone number:</label>
+    <input type="tel" name="bookingPhone" value="<%= location.bookingPhone %>">
+  </div>
+
+  <div>
+    <label>Indoor:</label>
+    <select name="indoor" class="form-control" aria-valuenow="<%= location.indoor %>" >
+      <option value="true" >true</option>
+      <option value="false">false</option>
+    </select>
+  </div>
+
+  
+  <input type="hidden" name="id" value="<%= location._id %>"/>
+
+  <button type="submit">update location</button>
+</form>

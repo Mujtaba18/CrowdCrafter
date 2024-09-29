@@ -1,6 +1,6 @@
 // CRUD operation
-const { Location } = require('../models/Location')
-const { Category } = require('../models/Category')
+const Location = require('../models/Location')
+const Event = require('../models/Event')
 
 // Create - HTTP GET and POST
 // Read - HTTP GET
@@ -8,9 +8,9 @@ const { Category } = require('../models/Category')
 // Delete - HTTP DELETE
 
 exports.location_create_get = (req, res) => {
-  Category.find()
-    .then((categorys) => {
-      res.render('location/add', { categorys })
+  Event.find()
+    .then((events) => {
+      res.render('location/add', { events })
     })
     .catch((err) => {
       console.log(err)
@@ -26,11 +26,12 @@ exports.location_create_post = (req, res) => {
   location
     .save()
     .then(() => {
-      req.body.category.forEach((category) => {
-        Category.findById(category)
-          .then((category) => {
-            category.location.push(location)
-            category.save()
+      console.log(req.body.event)
+      req.body.event.forEach((event) => {
+        Event.findById(event)
+          .then((event) => {
+            event.location.push(location)
+            event.save()
           })
           .catch((err) => {
             console.log(err)
@@ -46,9 +47,9 @@ exports.location_create_post = (req, res) => {
 
 exports.location_index_get = (req, res) => {
   Location.find()
-    .populate('category')
+    .populate('event')
     .then((location) => {
-      res.render('location/index', { location })
+      res.render('location', { location })
     })
     .catch((err) => {
       console.log(err)
@@ -58,9 +59,9 @@ exports.location_index_get = (req, res) => {
 exports.location_show_get = (req, res) => {
   console.log(req.query.id)
   Location.findById(req.query.id)
-    .populate('category')
+    .populate('event')
     .then((location) => {
-      res.render('location/detail', { location, dayjs })
+      res.render('location/detail', { location })
     })
     .catch((err) => {
       console.log(err)
@@ -82,7 +83,7 @@ exports.location_update_post = (req, res) => {
   console.log(req.body.id)
   Location.findByIdAndUpdate(req.body.id, req.body)
     .then(() => {
-      res.redirect('/location/index')
+      res.redirect('/location')
     })
     .catch((err) => {
       console.log(err)
@@ -92,7 +93,7 @@ exports.location_update_post = (req, res) => {
 exports.location_delete_get = (req, res) => {
   Location.findByIdAndDelete(req.query.id)
     .then(() => {
-      res.redirect('index')
+      res.redirect('/location')
     })
     .catch((err) => {
       console.log(err)
