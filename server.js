@@ -1,5 +1,6 @@
 //Load Dep
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 

@@ -8,10 +8,6 @@ const userSchema = mongoose.Schema({
     },
     email: String,
     avatar: String,
-    profileImage: {
-        type: String,
-        required: false
-    },
     event: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event',
@@ -19,6 +15,11 @@ const userSchema = mongoose.Schema({
     }]
 }, {
     timestamps: true
+}, {
+    profileImage: {
+        type: String,
+        required: false
+    },
 });
 
 module.exports = mongoose.model('User', userSchema);

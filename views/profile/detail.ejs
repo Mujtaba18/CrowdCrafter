@@ -20,5 +20,11 @@
             <img src=" <%= user.avatar %>">
         </th>
     </tr>
+    <tr>
+        <td>Profile Image:</td>
+        <th>
+            <img src="<%= user.profileImage || 'user.avatar' %>">
+        </th>
+    </tr>
 </table>
 <a href="/profile/edit">Edit Profile</a>
