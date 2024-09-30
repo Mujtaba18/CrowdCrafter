@@ -6,9 +6,9 @@
         <th>Date</th>
         <th>Time</th>
         <th>Description</th>
+        <th>Location</th>
         <th>Category</th>
         <th>Created At</th>
-        <th>Updated At</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -24,6 +24,7 @@
             <td> <%= dayjs(event.date).format('DD/MM/YYYY') %> </td>
             <td> <%= event.time %> </td>
             <td> <%= event.description %> </td>
+            <td> <%= event.location %> </td>
 
             <!-- Display all categories within a single cell -->
             <td>
@@ -38,7 +39,6 @@
             </td>
 
             <td> <%= dayjs(event.createdAt).fromNow(true) %> ago </td>
-            <td> <%= dayjs(event.updatedAt).fromNow(true) %> ago </td>
             <td>
                 <a href="/event/edit?id=<%= event._id %>" class="btn btn-outline-secondary"> Edit </a>
             </td>

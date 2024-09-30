@@ -23,19 +23,31 @@ exports.event_create_get = (request, respond) => {
 
 
 exports.event_create_post = (request, respond) => {
-    let event = new Event(request.body);
-    console.log(request.body)
+    // Parse selected categories and colors from the request body
+    const selectedCategories = JSON.parse(request.body.selectedCategories || '[]');
 
-    // Save Event
+    
+    // Create a new Event object based on the form data
+    let event = new Event({
+        name: request.body.name,
+        date: request.body.date,
+        time: request.body.time,
+        description: request.body.description,
+        location: request.body.location, 
+        status: request.body.status,      
+        category: selectedCategories
+    });
+
+    // Save the event to the database
     event.save()
         .then(() => {
-            respond.redirect('/event/index');
+            console.log('Event created successfully:', event);
+            respond.redirect('/event/index');  // Redirect to event list or index page
         })
         .catch((err) => {
-            console.log(err);
+            console.error('Error creating event:', err);
         });
-
-    };
+};
 
 
 // Read - HTTP GET 
@@ -62,6 +74,26 @@ exports.event_show_get = (req, res) => {
     }).catch((err) => {
         console.log(err);
     });
+}
+
+exports.event_edit_get = (req, res) => {
+    Event.findById(req.query.id).populate('category')
+    .then((event) => {
+        res.render("event/edit", {event, categories: event.category});
+    })
+    .catch((err)=> {
+        console.log(err)
+    })
+}
+
+exports.event_update_post = (req, res) => {
+    Event.findByIdAndUpdate(req.body.id, req.body)
+    .then(()=> {
+        res.redirect("/event/index");
+    })
+    .catch((err) => {
+        console.log(err)
+    })
 }
 
 //Delete - HTTP DELETE
