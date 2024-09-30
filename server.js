@@ -1,6 +1,4 @@
 //Load Dep
-// const session = require('express-session');
-const session = require('express-session');
 const express = require('express')
 const mongoose = require('mongoose')
 const expressLayouts = require('express-ejs-layouts')
@@ -9,16 +7,15 @@ const fs = require('fs')
 const path = require('path')
 const multer = require('multer')
 const imgSchema = require('./models/Location')
+
+// const session = require('express-session');
 const passport = require('passport')
 
 //require and initalize dotenv
 require('dotenv').config()
 
-//require and initalize passport
-require('./config/passport');
-
 //PORT conf
-const PORT = process.env.PORT;
+const PORT = 5010
 
 //Initalize express
 const app = express()
@@ -37,37 +34,15 @@ app.use(express.static('public'))
 
 // tesing to add a photo code
 
-// Passport and Sessions Configurations
-app.use(session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: true,
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Share the information with the pages
-app.use(function(request, respond, next) {
-    respond.locals.user = request.user;
-    next();
-});
-
 //Import Routes
-const indexRouter = require('./routes/index');
-const categoryRouter = require('./routes/category');
-const authRouter = require('./routes/auth');
-const profileRouter = require('./routes/profile');
-const eventRouter = require('./routes/event');
+const indexRouter = require('./routes/index')
+const categoryRouter = require('./routes/category')
+const eventRouter = require('./routes/event')
 const locationRouter = require('./routes/location')
 const { name } = require('ejs')
 
-
 //Mount Routes
-app.use('/', indexRouter);
-app.use('/category', categoryRouter);
-app.use('/', authRouter);
-app.use('/profile', profileRouter);
+app.use('/', indexRouter)
 app.use('/category', categoryRouter)
 app.use('/event', eventRouter)
 app.use('/location', locationRouter)
