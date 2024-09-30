@@ -2,6 +2,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const expressLayouts = require('express-ejs-layouts')
+const bodyParser = require('body-parser')
+const fs = require('fs')
+const path = require('path')
+const multer = require('multer')
+const imgSchema = require('./models/Location')
 
 // const session = require('express-session');
 const passport = require('passport')
@@ -27,11 +32,14 @@ app.use(expressLayouts)
 // Look for static file (CSS, JavaScript, Images, Videos, & Audio's) in the public folder
 app.use(express.static('public'))
 
+// tesing to add a photo code
+
 //Import Routes
 const indexRouter = require('./routes/index')
 const categoryRouter = require('./routes/category')
 const eventRouter = require('./routes/event')
 const locationRouter = require('./routes/location')
+const { name } = require('ejs')
 
 //Mount Routes
 app.use('/', indexRouter)

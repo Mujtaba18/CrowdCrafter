@@ -11,10 +11,15 @@
 
   <div>
     <label>availability:</label>
-    <select name="availability"  aria-valuenow="current">
-      <option value="current"><%= location.availability %></option>
-      <option value="true" >available</option>
-      <option value="false">not available</option>
+    <select name="availability">
+      <% if (location.availability === true) { %>
+      <option value="available" >available</option>
+      <option value="not available">not available</option>
+      <% } else { %>
+        <option value="not available">not available</option>
+        <option value="available" >available</option>
+      <% } %>
+
     </select>
     
   </div>
@@ -36,10 +41,14 @@
 
   <div>
     <label>Indoor:</label>
-    <select name="indoor" class="form-control" aria-valuenow="current" >
-      <option value="current"><%= location.availability %></option>
-      <option value="true" >true</option>
-      <option value="false">false</option>
+    <select name="indoor" class="form-control" value="<%= location.indoor %>">
+      <% if (location.indoor === true) { %>
+        <option value="indoor" >indoor</option>
+        <option value="outdoor">outdoor</option>
+        <% } else { %>
+          <option value="outdoor">outdoor</option>
+          <option value="indoor" >indoor</option>
+        <% } %>
     </select>
   </div>
 

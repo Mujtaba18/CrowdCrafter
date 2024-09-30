@@ -4,11 +4,11 @@ const locationSchema = mongoose.Schema(
   {
     names: String,
     capacity: Number,
-    availability: Boolean,
+    availability: String,
     city: String,
     bookingEmail: String,
     bookingPhone: String,
-    indoor: Boolean,
+    indoor: String,
     event: [
       {
         type: mongoose.Schema.Types.ObjectId,
