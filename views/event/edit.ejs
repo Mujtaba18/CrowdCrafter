@@ -1,0 +1,62 @@
+<h1> Edit Event </h1>
+
+<form method="POST" action="/event/update">
+    <div>
+        <label class="form-label">Event Name</label>
+        <br>
+        <input type="text" name="name" required class="form-control" value="<%= event.name %>">
+    </div>
+    <br>
+
+    <div>
+        <label class="form-label">Event Date</label>
+        <br>
+        <input type="date" name="date" required class="form-control" value="<%= event.date %>">
+    </div>
+    <br>
+
+    <div>
+        <label class="form-label">Event Time</label>
+        <br>
+        <input type="time" name="time" required class="form-control" value="<%= event.time %>">
+    </div>
+    <br>
+
+    <div>
+        <label class="form-label">Event Description</label>
+        <br>
+        <input class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" value="<%= event.description %>"/>
+    </div>
+    <br> 
+
+    <select class="form-select" multiple aria-label="Multiple select example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+      <br>
+
+      <div>
+        <label class="form-label">Location</label>
+        <select class="form-select">
+          <option value="1">One</option>
+        </select>
+      </div>
+      <br>
+
+      <div>
+        <label class="form-label">Status</label>
+        <select class="form-select">
+          <option value="upcoming"> Upcoming </option>
+          <option value="ongoing"> Ongoing </option>
+          <option value="completed"> Completed </option>
+        </select>
+      </div>
+      <br>
+
+<input type="hidden" name="id" value="<%= event._id %>">
+
+<button type="submit" class="btn btn-success"> Update Event </button>
+
+</form>

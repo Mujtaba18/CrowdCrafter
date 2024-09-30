@@ -1,0 +1,30 @@
+<h1> <%= event.name %> </h1>
+
+<div>
+    Date: <%= dayjs(event.date).format('DD/MM/YYYY') %>
+</div>
+
+<div>
+    Time: <%= event.time %> 
+</div>
+
+<div>
+    Description: <%= event.description %>
+</div>
+
+<div class="categories-container">
+    <% event.category.forEach(function(category) { %> <!-- event.category is now populated -->
+        <div class="category-item">
+            <span class="my-category-circle" data-color="<%= category.color %>"></span>
+            <%= category.name %>
+        </div>
+    <% }) %>
+</div>
+
+<div>
+    Created At: <%= dayjs(event.createdAt).fromNow(true) %> ago
+</div>
+
+<div>
+    Updated At: <%= dayjs(event.updatedAt).fromNow(true) %> ago
+</div>

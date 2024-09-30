@@ -1,19 +1,26 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const locationSchema = mongoose.Schema({
-    name: String,
+const locationSchema = mongoose.Schema(
+  {
+    names: String,
     capacity: Number,
-    availability: Boolean,
+    availability: String,
     city: String,
     bookingEmail: String,
     bookingPhone: String,
-    indoor: Boolean,
-    event: [{
+    indoor: String,
+    event: [
+      {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event',
-    }]
-}, {
+        ref: 'Event'
+      }
+    ]
+  },
+  {
     timestamps: true
-});
+  }
+)
 
-module.exports = mongoose.model('Location', locationSchema);
+const Location = mongoose.model('Location', locationSchema)
+
+module.exports = Location

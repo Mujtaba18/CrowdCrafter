@@ -1,5 +1,4 @@
 <h1>Events</h1>
-<br>
 <table class="table table-hover">
     <thead class="table-light">
     <tr>
@@ -7,9 +6,9 @@
         <th>Date</th>
         <th>Time</th>
         <th>Description</th>
+        <th>Location</th>
         <th>Category</th>
         <th>Created At</th>
-        <th>Updated At</th>
         <th>Edit</th>
         <th>Delete</th>
     </tr>
@@ -18,30 +17,28 @@
     <% events.forEach(function(event) { %>
         <tr>
             <td>
-                <a href="/event/detail?id=<%= events._id %>">
+                <a href="/event/detail?id=<%= event._id %>">
                     <%= event.name %>
                 </a> 
             </td>
-            <td> <%= event.date %> </td>
+            <td> <%= dayjs(event.date).format('DD/MM/YYYY') %> </td>
             <td> <%= event.time %> </td>
             <td> <%= event.description %> </td>
+            <td> <%= event.location %> </td>
 
-            <td> <!-- Display all categories within a single cell -->
+            <!-- Display all categories within a single cell -->
+            <td>
                 <div class="categories-container">
-                    <% event.category.forEach(categoryId => { %>
-                        <% let category = categories.find(cat => cat._id.toString() === categoryId.toString()); %>
-                        <% if (category) { %>
-                            <div class="category-item">
-                                <span class="my-category-circle" data-color="<%= category.color %>"></span>
-                                <%= category.name %>
-                            </div>
-                        <% } %>
+                    <% event.category.forEach(function(category) { %> <!-- event.category is now populated -->
+                        <div class="category-item">
+                            <span class="my-category-circle" data-color="<%= category.color %>"></span>
+                            <%= category.name %>
+                        </div>
                     <% }) %>
                 </div>
             </td>
 
-            <td> <%= dayjs(event.createdAt).fromNow(true) %>  ago </td>
-            <td> <%= dayjs(event.updatedAt).fromNow(true) %> ago </td>
+            <td> <%= dayjs(event.createdAt).fromNow(true) %> ago </td>
             <td>
                 <a href="/event/edit?id=<%= event._id %>" class="btn btn-outline-secondary"> Edit </a>
             </td>
@@ -65,7 +62,7 @@
     });
 </script>
 
-<!-- CSS for improved layout -->
+<!-- CSS to define the circle appearance -->
 <style>
     .my-category-circle {
         display: inline-block;
@@ -74,5 +71,4 @@
         border-radius: 50%;  /* Make it a circle */
         margin-right: 8px;   /* Space between the circle and category name */
     }
-
 </style>

@@ -39,7 +39,7 @@
         <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
           <% categories.forEach(function(category) { %>
           <li>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="#" data-id="<%= category._id %>" data-color="<%= category.color %>">
               <span class="my-category-circle" data-color="<%= category.color %>"></span>
               <%= category.name %>
             </a>
@@ -49,6 +49,8 @@
       </div>
     </div>
     <br>
+      <!-- Hidden input fields to hold selected category IDs -->
+    <input type="hidden" name="selectedCategories" id="selectedCategories">
       
 
       <div>
@@ -82,7 +84,34 @@
           circle.style.backgroundColor = color;          // Apply the color as background
       });
   });
+
+  //JavaScript to handle category selection and store it in hidden inputs
+  document.addEventListener('DOMContentLoaded', function() {
+    const selectedCategoriesInput = document.getElementById('selectedCategories');
+    
+    const selectedCategories = [];
+
+    // Listen to category clicks
+    document.querySelectorAll('.dropdown-item').forEach(function(item) {
+      item.addEventListener('click', function(event) {
+        event.preventDefault();  // Prevent link behavior
+
+        const categoryId = this.getAttribute('data-id');
+
+        // Avoid duplicates
+        if (!selectedCategories.includes(categoryId)) {
+          selectedCategories.push(categoryId);
+        }
+
+        // Update hidden inputs with selected categories
+        selectedCategoriesInput.value = JSON.stringify(selectedCategories);
+      });
+    });
+  });
 </script>
+
+
+
 
 <!-- CSS to define the circle appearance -->
 <style>
