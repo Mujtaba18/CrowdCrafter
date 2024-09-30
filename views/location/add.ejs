@@ -1,0 +1,45 @@
+<form action="/location/add" method="post">
+  <div>
+    <label class="form-label">name:</label>
+    <input type="text" name="names" class="form-control">
+  </div>
+
+  <div>
+    <label class="form-label">capacity:</label>
+    <input type="number" name="capacity" class="form-control">
+  </div>
+
+  <div>
+    <label class="form-label">availability:</label>
+    <select name="availability" class="form-control">
+      <option value="available" >available</option>
+      <option value="not available">not available</option>
+    </select>
+  </div>
+
+  <div>
+    <label class="form-label">city:</label>
+    <input type="text" name="city" class="form-control">
+  </div>
+
+  <div>
+    <label class="form-label">E-mail:</label>
+    <input type="email" name="bookingEmail" class="form-control">
+  </div>
+
+  <div>
+    <label class="form-label">Phone number:</label>
+    <input type="tel" class="form-control" name="bookingPhone">
+  </div>
+
+  <div>
+    <label class="form-label">Indoor:</label>
+    <select name="indoor" class="form-control">
+      <option value="indoor" >true</option>
+      <option value="outdoor">false</option>
+    </select>
+  </div>
+
+
+  <button type="submit" class="btn btn-success">add location</button>
+</form>
