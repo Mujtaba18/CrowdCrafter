@@ -1,0 +1,30 @@
+<h3>
+    <%= welcomeMessage %>
+</h3>
+<table>
+    <tr>
+        <td>Name:</td>
+        <th>
+            <%= user.name %>
+        </th>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <th>
+            <%= user.email %>
+        </th>
+    </tr>
+    <tr>
+        <td>Avatar:</td>
+        <th>
+            <img src=" <%= user.avatar %>">
+        </th>
+    </tr>
+    <tr>
+        <td>Profile Image:</td>
+        <th>
+            <img src="<%= user.profileImage || 'user.avatar' %>">
+        </th>
+    </tr>
+</table>
+<a href="/profile/edit">Edit Profile</a>
