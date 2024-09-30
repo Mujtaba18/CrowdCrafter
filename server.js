@@ -33,6 +33,48 @@ app.use(expressLayouts)
 app.use(express.static('public'))
 
 // tesing to add a photo code
+mongoose.connect(process.env.MongoDBURL).then(console.log('it works photo'))
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+const upload = multer({ storage: storage })
+
+app.get('/location/add', (req, res) => {
+  imgSchema.find({}).then((data, err) => {
+    if (err) {
+      console.log(err)
+    }
+    res.render('location/add', { items: data })
+  })
+})
+
+app.post('/location/add', upload.single('image'), (req, res) => {
+  let obj = {
+    names: req.body.names,
+    img: {
+      data: fs.readFileSync(
+        path.join(__dirname + '/uploads/' + req.file.filename)
+      ),
+      contentType: 'image/png'
+    }
+  }
+  imgSchema.create(obj).then((err, item) => {
+    if (err) {
+      console.log(err)
+    } else {
+      res.redirect('/location')
+    }
+  })
+})
 
 //Import Routes
 const indexRouter = require('./routes/index')

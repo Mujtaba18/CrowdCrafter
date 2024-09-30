@@ -1,4 +1,4 @@
-<form action="/location/add" method="post">
+<form action="/location/add" method="post" enctype="multipart/form-data">
   <div>
     <label class="form-label">name:</label>
     <input type="text" name="names" class="form-control">
@@ -40,6 +40,10 @@
     </select>
   </div>
 
+  <div>
+    <label for="image">upload image</label>
+    <input type="file" id="image" name="image" value="">
+  </div>
 
   <button type="submit" class="btn btn-success">add location</button>
 </form>

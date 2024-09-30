@@ -1,3 +1,4 @@
+
 <table>
 <div>location: <%= location.names %></div>
 <div>
@@ -18,4 +19,18 @@
   phone number: <%= location.bookingPhone %>
 </div>
 
-<div>indoor: <%= location.indoor %></div></table>
+<div>indoor: <%= location.indoor %></div>
+<div>
+    <div>
+      <img
+        src="data:location/<%=location.img.contentType%>;base64,
+        <%=location.img.data.toString('base64')%>"
+      />
+      <div>
+        <h5><%= location.names %></h5>
+      </div>
+    </div>
+</div>
+
+
+</table>

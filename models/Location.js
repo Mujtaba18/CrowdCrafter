@@ -9,6 +9,12 @@ const locationSchema = mongoose.Schema(
     bookingEmail: String,
     bookingPhone: String,
     indoor: String,
+    img: [
+      {
+        data: Buffer,
+        contentType: String
+      }
+    ],
     event: [
       {
         type: mongoose.Schema.Types.ObjectId,
