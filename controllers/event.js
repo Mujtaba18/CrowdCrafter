@@ -38,36 +38,40 @@ exports.event_create_post = (request, respond) => {
     };
 
 
-//Read - HTTP GET 
+// Read - HTTP GET 
 exports.event_index_get = (req, res) => {
-    Category.find().then((categories) =>{
-        console.log(categories);
-
-        Event.find().then((events)=>{
-            // Render the page and pass both events and categories to the view
-            res.render("event/index", { events, categories, dayjs });
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-
-    }).catch((err) => {
-        console.log(err);
-    })
-    
-    
-}
+    Event.find()
+        .populate('category')  // Populate the category field with actual category data
+        .then((events) => {
+            res.render('event/index', { events, dayjs });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
 
 //GET DEATILS
 exports.event_show_get = (req, res) => {
 
-    Event.findById(req.query.id)
+    Event.findById(req.query.id).populate('category')
     //if event is received from the db:
     .then((event) => {
 
-    res.render("event/detail", {event, dayjs });
+    res.render("event/detail", {event, categories: event.category, dayjs });
         
     }).catch((err) => {
         console.log(err);
     });
+}
+
+//Delete - HTTP DELETE
+exports.event_delete_get = (req, res) => {
+    console.log(req.query.id);
+    Event.findByIdAndDelete(req.query.id)
+    .then(()=> {
+        res.redirect("/event/index");
+    })
+    .catch((err) => {
+        console.log(err)
+    })
 }

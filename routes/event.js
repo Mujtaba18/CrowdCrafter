@@ -14,7 +14,8 @@ const eventCtrl = require('../controllers/event')
 router.get("/add", eventCtrl.event_create_get);
 router.post("/add", eventCtrl.event_create_post);
 router.get("/index", eventCtrl.event_index_get);
-router.post("/detail", eventCtrl.event_show_get);
+router.get("/detail", eventCtrl.event_show_get);
+router.get("/delete", eventCtrl.event_delete_get);
 
 
 //Export the router
