@@ -53,15 +53,32 @@
 </table>
 <table>
     <h3>Comment section</h3>
+    <tr>
+        <th>user name</th>
+        <br>
+        <th>title</th>
+        <br>
+        <th>comment</th>
+        <br>
+        <th>delete comment</th>
+    </tr>
     <% feedbacks.forEach(function(feedback) { %>
-    <div>
-        <%= feedback.userName %>
-    </div>
-    <div>
-        <%= feedback.title %>
-    </div>
-    <div>
-        <%= feedback.content %>
-    </div>
+            <tr>
+                <td>
+                    <%= feedback.userName %>
+                </td>
+                <td>
+                    <%= feedback.title %>
+                </td>
+                <td>
+                    <%= feedback.content %>
+                </td>
+                <td>
+                    <a href="/event/comment/delete?id=<%= feedback._id %>&eventId=<%= event._id %>">delete comment</a>
+                </td>
+            </tr>
+
+            <input type="hidden" name="eventId" value="<%= event._id %>">
     <% }) %>
+        
 </table>

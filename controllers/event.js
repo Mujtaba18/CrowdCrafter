@@ -89,6 +89,23 @@ exports.comment_create_post = (req, res) => {
     })
 }
 
+// comment delete
+exports.comment_delete_get = (req, res) => {
+  let id = req.query.eventId // Use the correct property name
+  console.log('Event ID:', id) // Log the ID
+
+  if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send('Invalid event ID')
+  }
+  Feedback.findByIdAndDelete(req.query.id)
+    .then(() => {
+      res.redirect(`/event/detail?id=${id}`)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
 // Read - HTTP GET
 exports.event_index_get = (req, res) => {
   Event.find()
@@ -107,17 +124,21 @@ exports.event_show_get = (req, res) => {
     .populate('category')
     //if event is received from the db:
     .then((event) => {
-        // Find all feedbacks for this event by its id.
-        Feedback.find({ event: event._id }) // Adjusted to find feedbacks related to the event
+      // Find all feedbacks for this event by its id.
+      Feedback.find({ event: event._id }) // Adjusted to find feedbacks related to the event
         .then((feedbacks) => {
           // Render the event details page, passing in event data and feedbacks
-          res.render('event/detail', { event, categories: event.category, feedbacks, dayjs });
+          res.render('event/detail', {
+            event,
+            categories: event.category,
+            feedbacks,
+            dayjs
+          })
         })
         .catch((err) => {
-          console.error('Error fetching feedbacks:', err);
-          res.status(500).send('Error fetching feedbacks'); // Handle feedback fetching error
-        });
-        
+          console.error('Error fetching feedbacks:', err)
+          res.status(500).send('Error fetching feedbacks') // Handle feedback fetching error
+        })
     })
     .catch((err) => {
       console.log(err)
