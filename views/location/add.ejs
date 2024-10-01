@@ -1,45 +1,53 @@
-<form action="/location/add" method="post">
+<h1>Add Location </h1>
+
+<form action="/location/add" method="post" style="width: 50vw;" enctype="multipart/form-data">
   <div>
-    <label class="form-label">name:</label>
+    <label class="form-label">name</label>
     <input type="text" name="names" class="form-control">
   </div>
-
+<br>
   <div>
-    <label class="form-label">capacity:</label>
+    <label class="form-label">capacity</label>
     <input type="number" name="capacity" class="form-control">
   </div>
-
+  <br>
   <div>
-    <label class="form-label">availability:</label>
+    <label class="form-label">availability</label>
     <select name="availability" class="form-control">
       <option value="available" >available</option>
       <option value="not available">not available</option>
     </select>
   </div>
-
+  <br>
   <div>
-    <label class="form-label">city:</label>
+    <label class="form-label">city</label>
     <input type="text" name="city" class="form-control">
   </div>
-
+  <br>
   <div>
-    <label class="form-label">E-mail:</label>
+    <label class="form-label">Email</label>
     <input type="email" name="bookingEmail" class="form-control">
   </div>
-
+  <br>
   <div>
-    <label class="form-label">Phone number:</label>
+    <label class="form-label">Phone number</label>
     <input type="tel" class="form-control" name="bookingPhone">
   </div>
-
+  <br>
   <div>
-    <label class="form-label">Indoor:</label>
+    <label class="form-label">Indoor </label>
     <select name="indoor" class="form-control">
       <option value="indoor" >true</option>
       <option value="outdoor">false</option>
     </select>
   </div>
+<br>
 
+<div>
+  <label class="form-label"> Location Images</label>
+  <input type="file" id="locationImages" name="locationImages" class="form-control" style="width: 50vw;" multiple >
+</div>
 
+<br>
   <button type="submit" class="btn btn-success">add location</button>
 </form>

@@ -36,7 +36,7 @@ app.use(expressLayouts);
 app.use(express.static('public'))
 
 app.use('/uploads', express.static('public/uploads'));
-
+app.use('/locations', express.static('public/locations'));
 // tesing to add a photo code
 
 // Passport and Sessions Configurations
