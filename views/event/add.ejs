@@ -55,8 +55,10 @@
 
       <div>
         <label class="form-label">Location</label>
-        <select class="form-select">
-          <option value="1">One</option>
+        <select name="location" class="form-select">
+          <% locations.forEach(function(location) { %>
+            <option value="<%= location._id %>"><%= location.names %></option>
+            <% }) %>
         </select>
       </div>
       <br>

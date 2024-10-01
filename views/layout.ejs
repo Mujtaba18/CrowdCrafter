@@ -24,7 +24,7 @@
         <div class="sidebar">
             <div class="profile-section">
                 <% if (user) { %>
-                <a href="/profile/detail"><img class="profile-circle" src=" <%= user.avatar %>"></a>
+                <a href="/profile/detail"><img class="profile-circle" src="<%= user.avatar %>"></a>
                 <span class="profile-name"><%= user.name %></span>
                 <% } else { %>
                     <div class="profile-circle"></div>
@@ -44,9 +44,10 @@
                 <li><a href="/event/index">Feed</a></li>
                 <li><a href="/category/index">Categories</a></li>
                 <li><a href="/category/add">Create Category</a></li>
+                <li><a href="/event/index">Events</a></li>
                 <li><a href="/event/add">Create Event</a></li>
-                <li><a href="#">Locations</a></li>
-                <li><a href="#">Add Location</a></li>
+                <li><a href="/location">Locations</a></li>
+                <li><a href="/location/add">Add Location</a></li>
 
             </ul>
         </div>

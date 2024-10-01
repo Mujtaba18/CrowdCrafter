@@ -30,7 +30,7 @@ const db = require('./config/db')
 app.set('view engine', 'ejs')
 
 // Look in views foolder for a file called layout.js
-app.use(expressLayouts)
+app.use(expressLayouts);
 
 // Look for static file (CSS, JavaScript, Images, Videos, & Audio's) in the public folder
 app.use(express.static('public'))
@@ -46,6 +46,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 // Share the information with the pages
 app.use(function(request, respond, next) {

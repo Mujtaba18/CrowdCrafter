@@ -35,33 +35,17 @@ exports.profile_edit_get = (request, respond) => {
     });
 };
 
-exports.profile_update_post = upload.single('profileImage'), (request, response) => {
-    const { name, email } = request.fields; // Access form data from request.fields
-  
-    const updates = {};
-  
-    if (name && name !== request.user.name) {
-      updates.name = name;
-    }
-  
-    if (email && email !== request.user.email) {
-      updates.email = email;
-    }
-  
-    // Handle profile picture upload as before
-    if (request.file) {
-      updates.profileImage = request.file.path;
-    }
-  
+exports.profile_update_post = (request, response) => {
     // Update the user's information in the database
-    User.findByIdAndUpdate(request.user._id, updates)
-      .then(() => {
-        console.log(`user id: ${request.user._id}`);
-        console.log(`body (name, email): ${name}, ${email}`); // Log the extracted values
-        response.redirect('/profile/detail');
-      })
-      .catch((err) => {
-        console.error('Error updating profile:', err);
-        response.status(500).send('Error updating profile');
-      });
-  };
+    User.findByIdAndUpdate(request.user._id, request.body)
+    
+        .then(() => {
+            console.log(`user id: ${request.user._id}`)
+            console.log(`body: ${request.body}`)
+            response.redirect('/profile/detail');
+        })
+        .catch((err) => {
+            console.error('Error updating profile:', err);
+            response.status(500).send('Error updating profile');
+        });
+};

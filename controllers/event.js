@@ -10,13 +10,16 @@ dayjs.extend(relativeTime)
 //Import models
 const Event = require("../models/Event");
 const Category = require("../models/Category");
+const Location = require("../models/Location");
 
 // Create - HTTP REQUEST GET AND POST
 exports.event_create_get = (request, respond) => {
 
     //Send the categories information
     Category.find().then((categories) => {
-        respond.render('event/add', {categories});
+        Location.find().then((locations) => {
+            respond.render('event/add', {categories, locations});
+        })
     })
     
 };
@@ -33,9 +36,9 @@ exports.event_create_post = (request, respond) => {
         date: request.body.date,
         time: request.body.time,
         description: request.body.description,
-        location: request.body.location, 
         status: request.body.status,      
-        category: selectedCategories
+        category: selectedCategories,
+        location: request.body.location
     });
 
     // Save the event to the database
@@ -53,7 +56,7 @@ exports.event_create_post = (request, respond) => {
 // Read - HTTP GET 
 exports.event_index_get = (req, res) => {
     Event.find()
-        .populate('category')  // Populate the category field with actual category data
+        .populate(['category','location'])  // Populate the category field with actual category data
         .then((events) => {
             res.render('event/index', { events, dayjs });
         })
