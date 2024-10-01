@@ -14,7 +14,11 @@ const locationSchema = mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
       }
-    ]
+    ],
+    locationImages: {
+      type: [String],  // Array of strings to store image filenames
+      required: false
+    }
   },
   {
     timestamps: true

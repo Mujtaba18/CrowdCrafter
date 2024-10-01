@@ -1,22 +1,6 @@
-const multer = require('multer');
-const path = require('path');
+
 const User = require('../models/User');
 
-
-const storage = multer.diskStorage({
-  //Specifies where to save the file
-    destination: (request, file, cb) => {
-      const destinationPath = path.join(__dirname, '../public/uploads/');
-        console.log('Destination path:', destinationPath);
-        cb(null, destinationPath);
-    },
-    //Specifies the name to use for the saved file
-    filename: (request, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-
-const upload = multer({storage: storage});
 
 exports.profile_get = (request, respond) => {
     respond.render('profile/detail', {
@@ -52,9 +36,6 @@ exports.profile_update_post = (request, response) => {
     updateData.profileImage = request.file.filename;  // Store the file name in the user's record
     console.log('Profile image updated with file:', updateData.profileImage);
   }
-
-  // Log the update data before updating the user in the database
-  console.log('Update data:', updateData);
 
   // Find the user by ID and update their profile
   User.findByIdAndUpdate(request.user._id, updateData)

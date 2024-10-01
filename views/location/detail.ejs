@@ -1,21 +1,54 @@
-<table>
-<div>location: <%= location.names %></div>
-<div>
-  capacity: <%= location.capacity %>
-</div>
+<h1> <%= location.names %> 's details </h1>
+
 
 <div>
-  availability: <%= location.availability %>
+  <label class="form-label">Capacity</label>
+  <br>
+    <input class="form-control" type="text" value="<%= location.capacity %>" disabled readonly style="width: 50vw;">
 </div>
+<br>
 
 <div>
-  city: <%= location.city %>
+  <label class="form-label">Availability</label>
+  <br>
+    <input class="form-control" type="text" value="<%= location.availability %>" disabled readonly style="width: 50vw;">
 </div>
-
-<div>E-mail: <%= location.bookingEmail %></div>
+<br>
 
 <div>
-  phone number: <%= location.bookingPhone %>
+  <label class="form-label">City</label>
+  <br>
+    <input class="form-control" type="text" value="<%= location.city %>" disabled readonly style="width: 50vw;">
 </div>
+<br>
 
-<div>indoor: <%= location.indoor %></div></table>
+<div>
+  <label class="form-label">Email</label>
+  <br>
+    <input class="form-control" type="text" value="<%= location.bookingEmail %>" disabled readonly style="width: 50vw;">
+</div>
+<br>
+
+<div>
+  <label class="form-label">Phone Number</label>
+  <br>
+    <input class="form-control" type="text" value="<%= location.bookingPhone %>" disabled readonly style="width: 50vw;">
+</div>
+<br>
+
+<div>
+  <label class="form-label">Indoor</label>
+  <br>
+    <input class="form-control" type="text" value="<%= location.indoor %>" disabled readonly style="width: 50vw;">
+</div>
+<br>
+
+<% if (location.locationImages.length > 0){ %>
+  <label class="form-label">Location Images </label>
+
+  <% location.locationImages.forEach(function(image) { %>
+    <img src="/locations/<%= image %>" >
+    <% console.log(image)  %>
+
+    <% }) %>
+<% } %>

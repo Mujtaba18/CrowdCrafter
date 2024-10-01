@@ -18,20 +18,39 @@ exports.location_create_get = (req, res) => {
 }
 
 exports.location_create_post = (req, res) => {
-  let location = new Location(req.body)
+  let location = new Location(req.body);
+
+  // Log the incoming request body and files (if uploaded)
+  console.log('Request body:', req.body);
+  if (req.files && req.files.length > 0) {
+    console.log('Uploaded files:', req.files);
+  } else {
+    console.log('No files uploaded');
+  }
+
+  // let createLocation = req.body;
+
+  // If files were uploaded, add the file names to the location's data
+  if (req.files && req.files.length > 0) {
+    // Map through the files and collect their filenames
+    const uploadedFileNames = req.files.map(file => file.filename);  
+    console.log("uploadedFileNames", uploadedFileNames)
+    location.locationImages = uploadedFileNames;  // Store an array of filenames in the location record
+    console.log('Location images added with files:', location.locationImages);
+  }
 
   // save location
-  // Referenced Design Model
   location
     .save()
     .then(() => {
-      res.redirect('/location')
+      console.log("data saved")
+      res.redirect('/location');
     })
     .catch((err) => {
-      console.log(err)
-      res.send('please try again later')
-    })
-}
+      console.log(err);
+      res.send('please try again later');
+    });
+};
 
 exports.location_index_get = (req, res) => {
   Location.find()
