@@ -24,7 +24,17 @@
         <div class="sidebar">
             <div class="profile-section">
                 <% if (user) { %>
-                <a href="/profile/detail"><img class="profile-circle" src=" <%= user.avatar %>"></a>
+
+                    <% if (user.profileImage == null ){ %>
+                        <a href="/profile/detail">
+                            <img src="<%= user.avatar %>" alt="Profile Image" class="profile-circle">
+                        </a>
+                        <% } else { %>
+                    <a href="/profile/detail">
+                        <img src="/uploads/<%= user.profileImage %>" alt="Profile Image" class="profile-circle">
+                    </a>
+                    <% } %>
+                    
                 <span class="profile-name"><%= user.name %></span>
                 <% } else { %>
                     <div class="profile-circle"></div>
@@ -45,8 +55,8 @@
                 <li><a href="/category/index">Categories</a></li>
                 <li><a href="/category/add">Create Category</a></li>
                 <li><a href="/event/add">Create Event</a></li>
-                <li><a href="#">Locations</a></li>
-                <li><a href="#">Add Location</a></li>
+                <li><a href="/location">Locations</a></li>
+                <li><a href="/location/add">Add Location</a></li>
 
             </ul>
         </div>

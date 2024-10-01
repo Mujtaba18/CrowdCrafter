@@ -1,30 +1,32 @@
+<h1> Profile </h1>
+
+<div class="profile-row">
+    <% if (user.profileImage == null ){ %>
+        <img src="<%= user.avatar %>" alt="Profile Image" class="profile-img">
+
+    <% } else { %>
+
+    <img src="/uploads/<%= user.profileImage %>" alt="Profile Image" class="profile-img">
+<% } %>
+
 <h3>
     <%= welcomeMessage %>
 </h3>
-<table>
-    <tr>
-        <td>Name:</td>
-        <th>
-            <%= user.name %>
-        </th>
-    </tr>
-    <tr>
-        <td>Email:</td>
-        <th>
-            <%= user.email %>
-        </th>
-    </tr>
-    <tr>
-        <td>Avatar:</td>
-        <th>
-            <img src=" <%= user.avatar %>">
-        </th>
-    </tr>
-    <tr>
-        <td>Profile Image:</td>
-        <th>
-            <img src="<%= user.profileImage || 'user.avatar' %>">
-        </th>
-    </tr>
-</table>
-<a href="/profile/edit">Edit Profile</a>
+</div>
+<br>
+
+<div>
+    <label class="form-label">Name</label>
+    <br>
+    <input class="form-control" type="text" value="<%= user.name %>" disabled readonly style="width: 50vw;">
+</div>
+<br>
+
+<div>
+    <label class="form-label">Email</label>
+    <br>
+    <input class="form-control" type="text" value=" <%= user.email %>" disabled readonly style="width: 50vw;">
+</div>
+<br>
+
+<a href="/profile/edit" class="btn btn-success">Edit Profile</a>

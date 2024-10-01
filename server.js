@@ -35,6 +35,8 @@ app.use(expressLayouts)
 // Look for static file (CSS, JavaScript, Images, Videos, & Audio's) in the public folder
 app.use(express.static('public'))
 
+app.use('/uploads', express.static('public/uploads'));
+
 // tesing to add a photo code
 
 // Passport and Sessions Configurations

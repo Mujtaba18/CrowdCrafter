@@ -1,24 +1,34 @@
-<h2>Edit Profile</h2>
+<h1>Edit Profile </h1>
 
-<form method="POST" action="/profile/update">
+<form method="POST" action="/profile/update" enctype="multipart/form-data">
     <div>
-        <label>Name: </label>
-        <input type="text" name="name" value="<%= user.name %>" >
-    </div>
-    <div>
-        <label>Email: </label>
-        <input type="text" name="phone" value="<%= user.email %>" readonly>
-    </div>
-    <div>
-        <label>Google Avatar: </label>
-        <img src=" <%= user.avatar %>">
-    </div>
-    <div>
-        <label>Profile Picture:</label>
-        <img src="<%= user.profileImage %>">
-        <input type="file" id="profileImage" name="profileImage">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" style="width: 50vw;" name="name" value="<%= user.name %>" >
     </div>
     <br>
+
+    <div>
+        <label class="form-label">Email </label>
+        <input type="text" type="text" class="form-control" style="width: 50vw;" name="phone" value="<%= user.email %>" readonly>
+    </div>
+    <br>
+
+    <div>
+        <label class="form-label"> Profile Image</label>
+        <br>
+        <% if (user.profileImage == null ){ %>
+            <img src="<%= user.avatar %>" alt="Profile Image" class="profile-img">
+
+        <% } else { %>
+
+        <img src="/uploads/<%= user.profileImage %>" alt="Profile Image" class="profile-img">
+    <% } %>
+<br>
+<br>
+        <input type="file" id="profileImage" name="profileImage" class="form-control" style="width: 50vw;" >
+    </div>
+    
+    <br>
     <input type="hidden" name="id" value="<%= user._id %>">
-    <button type="submit">Update Information</button>
+    <button type="submit" class="btn btn-success">Update Profile</button>
 </form>
