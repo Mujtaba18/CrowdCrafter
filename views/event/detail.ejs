@@ -30,11 +30,38 @@
 </div>
 
 <table>
-    <h1>Comment section</h1>
-  
-  
-  
-    <button><a href="/event/comment">add </a></button>
-  </table>
-  
-  
+    <h4>Add Comment</h4>
+    
+    <form method="POST" action="/event/comment">
+        <div>
+            <label class="form-label">Title</label>
+            <input type="text" name="title">
+        </div>
+    <br>
+    <div>
+        <label class="form-label">Content</label>
+        <input type="text" name="content">
+    </div>
+    <br>
+    <input type="hidden" name="event" value="<%= event.name %>">
+    <input type="hidden" name="eventId" value="<%= event._id %>">
+    <input type="hidden" name="userName" value="<%= user.name %>">
+
+    <input type="hidden" name="id" value="<%= user._id %>">
+    <button type="submit" class="btn btn-success">add comment</button>
+</form>
+</table>
+<table>
+    <h3>Comment section</h3>
+    <% feedbacks.forEach(function(feedback) { %>
+    <div>
+        <%= feedback.userName %>
+    </div>
+    <div>
+        <%= feedback.title %>
+    </div>
+    <div>
+        <%= feedback.content %>
+    </div>
+    <% }) %>
+</table>
