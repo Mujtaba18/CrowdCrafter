@@ -39,3 +39,57 @@
 <div>
     Updated At: <%= dayjs(event.updatedAt).fromNow(true) %> ago
 </div>
+
+<table>
+    <h4>Add Comment</h4>
+    
+    <form method="POST" action="/event/comment">
+        <div>
+            <label class="form-label">Title</label>
+            <input type="text" name="title">
+        </div>
+    <br>
+    <div>
+        <label class="form-label">Content</label>
+        <input type="text" name="content">
+    </div>
+    <br>
+    <input type="hidden" name="event" value="<%= event.name %>">
+    <input type="hidden" name="eventId" value="<%= event._id %>">
+    <input type="hidden" name="userName" value="<%= user.name %>">
+
+    <input type="hidden" name="id" value="<%= user._id %>">
+    <button type="submit" class="btn btn-success">add comment</button>
+</form>
+</table>
+<table>
+    <h3>Comment section</h3>
+    <tr>
+        <th>user name</th>
+        <br>
+        <th>title</th>
+        <br>
+        <th>comment</th>
+        <br>
+        <th>delete comment</th>
+    </tr>
+    <% feedbacks.forEach(function(feedback) { %>
+            <tr>
+                <td>
+                    <%= feedback.userName %>
+                </td>
+                <td>
+                    <%= feedback.title %>
+                </td>
+                <td>
+                    <%= feedback.content %>
+                </td>
+                <td>
+                    <a href="/event/comment/delete?id=<%= feedback._id %>&eventId=<%= event._id %>">delete comment</a>
+                </td>
+            </tr>
+
+            <input type="hidden" name="eventId" value="<%= event._id %>">
+    <% }) %>
+        
+</table>
