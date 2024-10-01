@@ -11,6 +11,7 @@ dayjs.extend(relativeTime)
 const Event = require("../models/Event");
 const Category = require("../models/Category");
 const Location = require("../models/Location");
+const User = require('../models/User');
 
 // Create - HTTP REQUEST GET AND POST
 exports.event_create_get = (request, respond) => {
@@ -29,7 +30,7 @@ exports.event_create_post = (request, respond) => {
     // Parse selected categories and colors from the request body
     const selectedCategories = JSON.parse(request.body.selectedCategories || '[]');
 
-    
+    console.log(request.body.status);
     // Create a new Event object based on the form data
     let event = new Event({
         name: request.body.name,
@@ -114,3 +115,43 @@ exports.event_delete_get = (req, res) => {
         console.log(err)
     })
 }
+
+// Join Event
+// Join Event
+// Join Event
+// Join Event
+exports.event_join_post = (req, res) => {
+    console.log(req.query.userId);
+    console.log(req.query.eventId);
+
+    User.findById(req.query.userId)
+    .then((user) => {
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        // Ensure the 'event' field exists and is an array
+        if (!user.event) {
+            user.event = []; // Initialize if undefined
+        }
+
+        // // Check if the user has already joined the event
+        // if (user.event.includes(req.query.eventId)) {
+        //     return res.status(400).send("User has already joined this event");
+        // }
+
+        user.event.push(req.query.eventId); // Push the new event ID
+        return user.save(); // Save the updated user object
+    })
+    .then(() => {
+        console.log("User updated with new event");
+        res.redirect("/profile/detail");
+    })
+    .catch((err) => {
+        console.log(err);
+        res.status(500).send("Error occurred while joining the event");
+    });
+};
+
+
+

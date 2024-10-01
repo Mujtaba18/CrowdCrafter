@@ -18,6 +18,7 @@ router.get("/detail", eventCtrl.event_show_get);
 router.get("/delete", eventCtrl.event_delete_get);
 router.get("/edit", eventCtrl.event_edit_get);
 router.post("/update", eventCtrl.event_update_post);
+router.get("/join", eventCtrl.event_join_post);
 
 
 //Export the router
