@@ -1,6 +1,6 @@
 //Load Dep
 // const session = require('express-session');
-const session = require('express-session');
+const session = require('express-session')
 const express = require('express')
 const mongoose = require('mongoose')
 const expressLayouts = require('express-ejs-layouts')
@@ -15,10 +15,10 @@ const passport = require('passport')
 require('dotenv').config()
 
 //require and initalize passport
-require('./config/passport');
+require('./config/passport')
 
 //PORT conf
-const PORT = process.env.PORT;
+const PORT = process.env.PORT
 
 //Initalize express
 const app = express()
@@ -38,6 +38,7 @@ app.use(express.static('public'))
 // tesing to add a photo code
 mongoose.connect(process.env.MongoDBURL).then(console.log('it works photo'))
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -80,36 +81,37 @@ app.post('/location/add', upload.single('image'), (req, res) => {
 })
 
 // Passport and Sessions Configurations
-app.use(session({
+app.use(
+  session({
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true,
-}));
+    saveUninitialized: true
+  })
+)
 
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize())
+app.use(passport.session())
 
 // Share the information with the pages
-app.use(function(request, respond, next) {
-    respond.locals.user = request.user;
-    next();
-});
+app.use(function (request, respond, next) {
+  respond.locals.user = request.user
+  next()
+})
 
 //Import Routes
-const indexRouter = require('./routes/index');
-const categoryRouter = require('./routes/category');
-const authRouter = require('./routes/auth');
-const profileRouter = require('./routes/profile');
-const eventRouter = require('./routes/event');
+const indexRouter = require('./routes/index')
+const categoryRouter = require('./routes/category')
+const authRouter = require('./routes/auth')
+const profileRouter = require('./routes/profile')
+const eventRouter = require('./routes/event')
 const locationRouter = require('./routes/location')
 const { name } = require('ejs')
 
-
 //Mount Routes
-app.use('/', indexRouter);
-app.use('/category', categoryRouter);
-app.use('/', authRouter);
-app.use('/profile', profileRouter);
+app.use('/', indexRouter)
+app.use('/category', categoryRouter)
+app.use('/', authRouter)
+app.use('/profile', profileRouter)
 app.use('/category', categoryRouter)
 app.use('/event', eventRouter)
 app.use('/location', locationRouter)

@@ -1,5 +1,5 @@
 //Load Dep
-const dayjs = require('dayjs');
+const dayjs = require('dayjs')
 
 //intialize the plugin
 var relativeTime = require('dayjs/plugin/relativeTime')
@@ -8,102 +8,104 @@ dayjs.extend(relativeTime)
 //CRUD OPERATIONS
 
 //Import models
-const Event = require("../models/Event");
-const Category = require("../models/Category");
+const Event = require('../models/Event')
+const Category = require('../models/Category')
+const Feedback = require('../models/Feedback')
 
 // Create - HTTP REQUEST GET AND POST
 exports.event_create_get = (request, respond) => {
-
-    //Send the categories information
-    Category.find().then((categories) => {
-        respond.render('event/add', {categories});
-    })
-    
-};
-
+  //Send the categories information
+  Category.find().then((categories) => {
+    respond.render('event/add', { categories })
+  })
+}
 
 exports.event_create_post = (request, respond) => {
-    // Parse selected categories and colors from the request body
-    const selectedCategories = JSON.parse(request.body.selectedCategories || '[]');
+  // Parse selected categories and colors from the request body
+  const selectedCategories = JSON.parse(request.body.selectedCategories || '[]')
 
-    
-    // Create a new Event object based on the form data
-    let event = new Event({
-        name: request.body.name,
-        date: request.body.date,
-        time: request.body.time,
-        description: request.body.description,
-        location: request.body.location, 
-        status: request.body.status,      
-        category: selectedCategories
-    });
+  // Create a new Event object based on the form data
+  let event = new Event({
+    name: request.body.name,
+    date: request.body.date,
+    time: request.body.time,
+    description: request.body.description,
+    location: request.body.location,
+    status: request.body.status,
+    category: selectedCategories
+  })
 
-    // Save the event to the database
-    event.save()
-        .then(() => {
-            console.log('Event created successfully:', event);
-            respond.redirect('/event/index');  // Redirect to event list or index page
-        })
-        .catch((err) => {
-            console.error('Error creating event:', err);
-        });
-};
+  // Save the event to the database
+  event
+    .save()
+    .then(() => {
+      console.log('Event created successfully:', event)
+      respond.redirect('/event/index') // Redirect to event list or index page
+    })
+    .catch((err) => {
+      console.error('Error creating event:', err)
+    })
+}
 
+// comment get and post
+exports.comment_create_get = (req, res) => {}
 
-// Read - HTTP GET 
+exports.comment_create_post = (req, res) => {}
+
+// Read - HTTP GET
 exports.event_index_get = (req, res) => {
-    Event.find()
-        .populate('category')  // Populate the category field with actual category data
-        .then((events) => {
-            res.render('event/index', { events, dayjs });
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-};
+  Event.find()
+    .populate('category') // Populate the category field with actual category data
+    .then((events) => {
+      res.render('event/index', { events, dayjs })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 
 //GET DEATILS
 exports.event_show_get = (req, res) => {
-
-    Event.findById(req.query.id).populate('category')
+  Event.findById(req.query.id)
+    .populate('category')
     //if event is received from the db:
     .then((event) => {
-
-    res.render("event/detail", {event, categories: event.category, dayjs });
-        
-    }).catch((err) => {
-        console.log(err);
-    });
+      res.render('event/detail', { event, categories: event.category, dayjs })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 exports.event_edit_get = (req, res) => {
-    Event.findById(req.query.id).populate('category')
+  Event.findById(req.query.id)
+    .populate('category')
     .then((event) => {
-        res.render("event/edit", {event, categories: event.category});
+      res.render('event/edit', { event, categories: event.category })
     })
-    .catch((err)=> {
-        console.log(err)
+    .catch((err) => {
+      console.log(err)
     })
 }
 
 exports.event_update_post = (req, res) => {
-    Event.findByIdAndUpdate(req.body.id, req.body)
-    .then(()=> {
-        res.redirect("/event/index");
+  Event.findByIdAndUpdate(req.body.id, req.body)
+    .then(() => {
+      res.redirect('/event/index')
     })
     .catch((err) => {
-        console.log(err)
+      console.log(err)
     })
 }
 
 //Delete - HTTP DELETE
 exports.event_delete_get = (req, res) => {
-    console.log(req.query.id);
-    Event.findByIdAndDelete(req.query.id)
-    .then(()=> {
-        res.redirect("/event/index");
+  console.log(req.query.id)
+  Event.findByIdAndDelete(req.query.id)
+    .then(() => {
+      res.redirect('/event/index')
     })
     .catch((err) => {
-        console.log(err)
+      console.log(err)
     })
 }
