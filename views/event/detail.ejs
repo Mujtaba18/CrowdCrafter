@@ -13,11 +13,19 @@
 </div>
 
 <div class="categories-container">
+    Categories: 
     <% event.category.forEach(function(category) { %> <!-- event.category is now populated -->
         <div class="category-item">
             <span class="my-category-circle" data-color="<%= category.color %>"></span>
             <%= category.name %>
         </div>
+    <% }) %>
+</div>
+
+<div>
+    Location: 
+    <% event.location.forEach(function(location) { %> <!-- event.location is now populated -->
+            <%= location.names %>
     <% }) %>
 </div>
 

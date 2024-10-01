@@ -68,7 +68,7 @@ exports.event_index_get = (req, res) => {
 //GET DEATILS
 exports.event_show_get = (req, res) => {
 
-    Event.findById(req.query.id).populate('category')
+    Event.findById(req.query.id).populate(['category','location'])
     //if event is received from the db:
     .then((event) => {
 
@@ -80,9 +80,13 @@ exports.event_show_get = (req, res) => {
 }
 
 exports.event_edit_get = (req, res) => {
-    Event.findById(req.query.id).populate('category')
-    .then((event) => {
-        res.render("event/edit", {event, categories: event.category});
+    Event.findById(req.query.id).populate(['category','location'])
+    .then(async (event) => {
+        const [categories, locations] = await Promise.all([
+            Category.find(), // Retrieve all categories
+            Location.find(), // Retrieve all locations
+          ]);
+        res.render("event/edit", { event, categories, locations});
     })
     .catch((err)=> {
         console.log(err)
