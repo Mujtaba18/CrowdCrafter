@@ -30,7 +30,7 @@
     <br> 
 
     <label class="form-label">Categories</label>
-    <select name="category" class="form-select">
+    <select name="category[]" class="form-select" multiple>
           <% categories.forEach(function(category) { %>
           <option value="<%= category._id %>">
             <span class="my-category-circle" data-color="<%= category.color %>"></span>
@@ -52,7 +52,7 @@
 
       <div>
         <label class="form-label">Status</label>
-        <select class="form-select">
+        <select name="status" class="form-select">
           <option value="upcoming"> Upcoming </option>
           <option value="ongoing"> Ongoing </option>
           <option value="completed"> Completed </option>
