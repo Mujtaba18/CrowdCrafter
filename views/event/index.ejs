@@ -16,7 +16,6 @@
         <th>Location</th>
         <th>Category</th>
         <th>Status</th>
-        <th>Created At</th>
         <th>Edit</th>
         <th>Delete</th>
         <th>Join</th>
@@ -51,7 +50,6 @@
                 </div>
             </td>
             <td><%= event.status %></td>
-            <td> <%= dayjs(event.createdAt).fromNow(true) %> ago </td>
             <td>
                 <a href="/event/edit?id=<%= event._id %>" class="btn btn-outline-secondary"> Edit </a>
             </td>

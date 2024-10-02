@@ -33,7 +33,7 @@
     <div>
       <label class="form-label">Category</label>
       <div class="dropdown" style="width: 50vw;">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-secondary dropdown-toggle cat-ddl" style="width: 50vw;" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           Select Categories
         </button>
         <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
@@ -49,9 +49,15 @@
       </div>
     </div>
     <br>
-      <!-- Hidden input fields to hold selected category IDs -->
-    <input type="hidden" name="selectedCategories" id="selectedCategories">
-      
+
+    <!-- Container for displaying selected categories as chips -->
+    <div id="categoryChipsContainer">
+      <label class="form-label" id="cat-label">Selected Categories</label>
+      <div id="selectedCategoriesContainer"></div>
+      <!-- Hidden input field to hold selected category IDs -->
+      <input type="hidden" name="selectedCategories" id="selectedCategories">
+  </div>
+  <br>
 
       <div>
         <label class="form-label">Location</label>
@@ -77,41 +83,76 @@
 
 </form>
 
-<!-- JavaScript to apply the background color -->
+
+<!-- JavaScript to handle category chip creation and chip removal -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-      // Apply background color to each category circle based on the data-color attribute
-      document.querySelectorAll('.my-category-circle').forEach(function(circle) {
+     // Apply background color to each category circle based on the data-color attribute
+     document.querySelectorAll('.my-category-circle').forEach(function(circle) {
           var color = circle.getAttribute('data-color');  // Get the color from the data attribute
           circle.style.backgroundColor = color;          // Apply the color as background
       });
   });
+      const selectedCategoriesInput = document.getElementById('selectedCategories');
+      const selectedCategoriesContainer = document.getElementById('selectedCategoriesContainer');
+      const selectedCategoriesLabel = document.getElementById('cat-label');
+      console.log(selectedCategoriesLabel)
+      const selectedCategories = [];
 
-  //JavaScript to handle category selection and store it in hidden inputs
-  document.addEventListener('DOMContentLoaded', function() {
-    const selectedCategoriesInput = document.getElementById('selectedCategories');
-    
-    const selectedCategories = [];
+      
+      // Handle category selection
+      document.querySelectorAll('.dropdown-item').forEach(function(item) {
+          item.addEventListener('click', function(event) {
+              event.preventDefault();  // Prevent link behavior
 
-    // Listen to category clicks
-    document.querySelectorAll('.dropdown-item').forEach(function(item) {
-      item.addEventListener('click', function(event) {
-        event.preventDefault();  // Prevent link behavior
+              const categoryId = this.getAttribute('data-id');
+              const categoryName = this.textContent.trim();
+              const categoryColor = this.getAttribute('data-color');
 
-        const categoryId = this.getAttribute('data-id');
-
-        // Avoid duplicates
-        if (!selectedCategories.includes(categoryId)) {
-          selectedCategories.push(categoryId);
-        }
-
-        // Update hidden inputs with selected categories
-        selectedCategoriesInput.value = JSON.stringify(selectedCategories);
+              // Avoid duplicates
+              if (!selectedCategories.includes(categoryId)) {
+                  selectedCategories.push(categoryId);
+                  addCategoryChip(categoryName, categoryColor, categoryId);
+                  updateHiddenInput();
+              }
+          });
       });
-    });
-  });
-</script>
 
+      // Function to add category chip to the container
+      function addCategoryChip(name, color, id) {
+          const chip = document.createElement('div');
+          chip.classList.add('category-chip');
+          chip.style.backgroundColor = color;
+          chip.innerHTML = `
+              ${name} <span class="close-chip" data-id="${id}">&times;</span>
+          `;
+          selectedCategoriesContainer.appendChild(chip);
+
+          // Add event listener to remove chip
+          chip.querySelector('.close-chip').addEventListener('click', function() {
+              const chipId = this.getAttribute('data-id');
+              const index = selectedCategories.indexOf(chipId);
+              if (index > -1) {
+                  selectedCategories.splice(index, 1);  // Remove from array
+                  chip.remove();  // Remove the chip from the UI
+                  updateHiddenInput();  // Update the hidden input
+              }
+          });
+      }
+
+      // Function to update hidden input with selected category IDs
+      function updateHiddenInput() {
+          selectedCategoriesInput.value = JSON.stringify(selectedCategories);
+
+           // Show or hide the "Selected Categories" label based on selection
+            if (selectedCategories.length > 0) {
+                selectedCategoriesLabel.style.display = 'block';
+            } else {
+                selectedCategoriesLabel.style.display = 'none';
+            }
+      }
+
+</script>
 
 
 
@@ -124,4 +165,63 @@
       border-radius: 50%;  /* Make it a circle */
       margin-right: 8px;   /* Space between the circle and category name */
   }
+
+  #selectedCategoriesContainer {
+    display: flex;
+    flex-wrap: wrap; /* Ensure chips wrap to the next line if necessary */
+}
+
+   .category-chip {
+        display: inline-block;
+        padding: 4px 10px;
+        margin: 5px;
+        border-radius: 15px;
+        background-color: lightgray;
+        color: white;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+
+    .category-chip .close-chip {
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 18px;
+        color: white;
+    }
+
+    /* .category-chip:hover {
+        background-color: darkgray;
+    } */
+
+    .category-chip .close-chip:hover {
+        color: red;
+    }
+
+    .cat-ddl{
+      text-align: left;
+      background-color: white;
+      border-color: #6c757d;
+      color: black;
+
+    }
+
+    .cat-ddl:hover {
+      background-color: white;
+      border-color: #6c757d;
+      color: black;
+
+    }
+
+
+    .cat-ddl:focus {
+      background-color: white;
+      border-color: #6c757d;
+      color: black;
+
+    }
+
+    #cat-label {
+    display: none;
+}
 </style>

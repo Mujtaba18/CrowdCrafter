@@ -211,7 +211,7 @@ exports.event_join_post = (req, res) => {
           return res.render('event/index', { 
             events, // Pass the events to the view
             dayjs,
-            alertMessage: 'You already joined this event',
+            alertMessage: 'You already joined this event, check your events in your profile',
             alertType: 'warning' // Bootstrap warning alert
           });
         });
