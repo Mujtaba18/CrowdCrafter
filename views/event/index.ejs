@@ -1,18 +1,27 @@
 <h1>Events</h1>
+
+<% if (typeof alertMessage !== 'undefined') { %>
+  <div class="alert alert-<%= alertType %>" role="alert">
+    <%= alertMessage %>
+  </div>
+<% } %>
+
 <table class="table table-hover">
     <thead class="table-light">
     <tr>
         <th>Name</th>
         <th>Date</th>
         <th>Time</th>
+        <th>Event Organizer</th>
         <th>Description</th>
         <th>Location</th>
         <th>Category</th>
         <th>Status</th>
-        <th>Created At</th>
-        <% if (user) { %>
-        <th>Edit</th>
-        <th>Delete</th>
+        <% if (user.name) { %>
+            <th>Edit</th>
+            <th>Delete</th>
+          <% } %>
+           
         <th>Join</th>
         <% } %>
     </tr>
@@ -27,6 +36,7 @@
             </td>
             <td> <%= dayjs(event.date).format('DD/MM/YYYY') %> </td>
             <td> <%= event.time %> </td>
+            <td> <%= event.username %> </td>
             <td> <%= event.description %> </td>
             <td>
                 <% event.location.forEach(function(location) { %>
@@ -46,23 +56,27 @@
                 </div>
             </td>
             <td><%= event.status %></td>
-            <td> <%= dayjs(event.createdAt).fromNow(true) %> ago </td>
-            <% if (user) { %>
-            <td>
-                <a href="/event/edit?id=<%= event._id %>" class="btn btn-outline-secondary"> Edit </a>
-            </td>
-            <td>
-                <input type="hidden" name="id" value="<%= event._id %>">
-                <a href="/event/delete?id=<%= event._id %>" class="btn btn-outline-danger"> Delete </a>
-            </td>
+            <% if (user.name == event.username) { %>
+                <% console.log(`event organizer: ${event.username} `) %>
                 <td>
-                    <a href="/event/join?eventId=<%= event._id %>&userId=<%= user._id %>" class="btn btn-outline-secondary"> Join </a>
+                    <a href="/event/edit?id=<%= event._id %>" class="btn btn-outline-secondary"> Edit </a>
                 </td>
-            <% } %>
-        </tr>
-    <% }) %>
-    </tbody>
-</table>
+                <td>
+                    <input type="hidden" name="id" value="<%= event._id %>">
+                    <a href="/event/delete?id=<%= event._id %>" class="btn btn-outline-danger"> Delete </a>
+                </td>
+                <% } else { %>
+                <td></td>
+                <td></td>
+                    <% } %>
+  
+              <td>
+                  <a href="/event/join?eventId=<%= event._id %>&userId=<%= user._id %>" class="btn btn-outline-secondary"> Join </a>
+              </td>
+          </tr>
+      <% }) %>
+      </tbody>
+  </table>
 
 <!-- JavaScript to apply the background color -->
 <script>
