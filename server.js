@@ -3,7 +3,6 @@ const session = require('express-session')
 const express = require('express')
 const mongoose = require('mongoose')
 const expressLayouts = require('express-ejs-layouts')
-// const fs = require('fs')
 const passport = require('passport')
 
 //require and initalize dotenv
