@@ -10,9 +10,11 @@
         <th>Category</th>
         <th>Status</th>
         <th>Created At</th>
+        <% if (user) { %>
         <th>Edit</th>
         <th>Delete</th>
         <th>Join</th>
+        <% } %>
     </tr>
     </thead>
     <tbody class="table-group-divider">
@@ -45,6 +47,7 @@
             </td>
             <td><%= event.status %></td>
             <td> <%= dayjs(event.createdAt).fromNow(true) %> ago </td>
+            <% if (user) { %>
             <td>
                 <a href="/event/edit?id=<%= event._id %>" class="btn btn-outline-secondary"> Edit </a>
             </td>
@@ -52,9 +55,10 @@
                 <input type="hidden" name="id" value="<%= event._id %>">
                 <a href="/event/delete?id=<%= event._id %>" class="btn btn-outline-danger"> Delete </a>
             </td>
-            <td>
-                <a href="/event/join?eventId=<%= event._id %>&userId=<%= user._id %>" class="btn btn-outline-secondary"> Join </a>
-            </td>
+                <td>
+                    <a href="/event/join?eventId=<%= event._id %>&userId=<%= user._id %>" class="btn btn-outline-secondary"> Join </a>
+                </td>
+            <% } %>
         </tr>
     <% }) %>
     </tbody>

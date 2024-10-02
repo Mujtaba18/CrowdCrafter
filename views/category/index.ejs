@@ -6,8 +6,10 @@
         <th>Name</th>
         <th>Created At</th>
         <th>Updated At</th>
+        <% if (user) { %>
         <th>Edit</th>
         <th>Delete</th>
+        <% } %>
     </tr>
     </thead>
     <tbody class="table-group-divider">
@@ -23,6 +25,7 @@
             </td>
             <td> <%= dayjs(category.createdAt).fromNow(true) %>  ago </td>
             <td> <%= dayjs(category.updatedAt).fromNow(true) %> ago </td>
+            <% if(user) { %>
             <td>
                 <a href="/category/edit?id=<%= category._id %>" class="btn btn-outline-secondary"> Edit </a>
             </td>
@@ -30,6 +33,7 @@
                 <input type="hidden" name="id" value="<%= category._id %>">
                 <a href="/category/delete?id=<%= category._id %>" class="btn btn-outline-danger"> Delete </a>
             </td>
+            <% } %>
         </tr>
     <% }) %>
     </tbody>

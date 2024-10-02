@@ -24,31 +24,29 @@
         <div class="sidebar">
             <div class="profile-section">
                 <% if (user) { %>
-                    <% if (user.profileImage == null ){ %>
+                    <% if (user.profileImage==null ){ %>
                         <a href="/profile/detail">
                             <img src="<%= user.avatar %>" alt="Profile Image" class="profile-circle">
                         </a>
                         <% } else { %>
-                    <a href="/profile/detail">
-                        <img src="/uploads/<%= user.profileImage %>" alt="Profile Image" class="profile-circle">
-                    </a>
-                    <% } %>
-                <span class="profile-name"><%= user.name %></span>
-                <% } else { %>
-                    <div class="profile-circle"></div>
-                    <span class="profile-name">Guest</span>
-                    <% } %>
-                <hr class="divider">
+                            <a href="/profile/detail">
+                                <img src="/uploads/<%= user.profileImage %>" alt="Profile Image" class="profile-circle">
+                            </a>
+                            <% } %>
+                                <span class="profile-name">
+                                    <%= user.name %>
+                                </span>
+                                <% } else { %>
+                                    <div class="profile-circle"></div>
+                                    <span class="profile-name">Guest</span>
+                                    <% } %>
+                                        <hr class="divider">
             </div>
 
             <ul class="menu">
                 <li>
                     <% if (user) { %>
-                        <a href="/logout">Log Out</a>
-                        <% } else { %>
-                            <a href="/auth/google">Sign In</a>
-                            <% } %>
-                </li>
+                <li><a id="logout" href="/logout">Log Out</a></li>
                 <li><a href="/event/index">Feed</a></li>
                 <li><a href="/category/index">Categories</a></li>
                 <li><a href="/category/add">Create Category</a></li>
@@ -56,6 +54,15 @@
                 <li><a href="/event/add">Create Event</a></li>
                 <li><a href="/location">Locations</a></li>
                 <li><a href="/location/add">Add Location</a></li>
+                <% } else { %>
+                    <li><a id="login" href="/auth/google">Sign In</a></li>
+                    <li><a href="/event/index">Feed</a></li>
+                    <li><a href="/category/index">Categories</a></li>
+                    <li><a href="/event/index">Events</a></li>
+                    <li><a href="/location">Locations</a></li>
+                    <% } %>
+                        </li>
+
 
             </ul>
         </div>

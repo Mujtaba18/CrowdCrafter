@@ -9,8 +9,10 @@
     <th>Booking Email</th>
     <th>Phone Number</th>
     <th>Indoor</th>
+    <% if (user) { %>
     <th>Edit</th>
     <th>Delete</th>
+    <% } %>
   </tr>
 </thead>
 
@@ -27,8 +29,10 @@
     <td><%= location.bookingEmail %></td>
     <td><%= location.bookingPhone %></td>
     <td><%= location.indoor %></td>
+    <% if (user) { %>
     <td><a href="/location/edit?id=<%= location._id %>" class="btn btn-outline-secondary">Edit</a></td>
-      <td><a href="/location/delete?id=<%= location._id %>" class="btn btn-outline-danger">Delete</a></td>
+    <td><a href="/location/delete?id=<%= location._id %>" class="btn btn-outline-danger">Delete</a></td>
+    <% } %>
   </tr>
   <%})%>
 </tbody>

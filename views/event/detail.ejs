@@ -27,11 +27,11 @@
     <% event.category.forEach(function(category) { %> <!-- event.category is now populated -->
         <div class="category-item">
             <span class="my-category-circle" data-color="<%= category.color %>"></span>
-            <%= category.name %> /
+            <input class="form-control" type="text" value="<%= category.name %>" disabled readonly style="width: 50vw; color: white; background-color: <%= category.color %>;">
         </div>
     <% }) %>
 </div>
-
+<br>
 <div>
     <label class="form-label">Status</label>
     <br>
@@ -44,14 +44,14 @@
     <div>
 
         <% event.location.forEach(function(location) { %> <!-- event.location is now populated -->
-                <%= location.names %>
+            <input class="form-control" type="text" value="<%= location.names %>" disabled readonly style="width: 50vw;">         
         <% }) %>
     </div>
 </div>
 <br>
 <hr>
 
-
+    <%if (user) { %>
     <h2>Add Comment</h2>
     
     <form method="POST" action="/event/comment">
@@ -73,6 +73,7 @@
     <button type="submit" class="btn btn-success">add comment</button>
 </form>
 <hr>
+<% } %>
 
 <h2>Comment Section</h2>
 

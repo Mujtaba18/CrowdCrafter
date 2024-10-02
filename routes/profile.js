@@ -28,4 +28,6 @@ router.get('/edit', profileCtrl.profile_edit_get);
 // Add the upload middleware to handle the file upload in the POST request
 router.post('/update', upload.single('profileImage'), profileCtrl.profile_update_post);
 
+router.get('/leave', profileCtrl.event_leave_get);
+
 module.exports = router;

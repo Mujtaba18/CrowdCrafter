@@ -30,3 +30,34 @@
 <br>
 
 <a href="/profile/edit" class="btn btn-success">Edit Profile</a>
+
+<hr>
+<h3>Joined Events</h3>
+<table class="table table-hover">
+    <thead class="table-light">
+    <% if (user.event && user.event.length > 0) { %>
+    <tr>
+        <th>Event Name</th>
+        <th>Event Date</th>
+        <th>Leave Event</th>
+    </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <% user.event.forEach(function(event){ %>
+          <tr>
+            <td>
+                <a href="/event/detail?id=<%= event._id %>">
+                    <%= event.name %>
+                </a> 
+            </td> 
+            <td><%= event.date.toISOString().slice(0, 10) %></td>
+            <td><a href="/profile/leave?id=<%= event._id %>" class="btn btn-outline-danger"> Leave </a></td>
+          </tr>
+        <% }); %>
+    </tbody>
+      <% } else { %>
+        <tr>
+          <td colspan="2">No events found.</td>
+        </tr>
+      <% } %>
+</table>
