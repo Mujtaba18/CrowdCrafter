@@ -30,6 +30,8 @@ exports.event_create_get = (request, respond) => {
 };
 
 exports.event_create_post = (request, respond) => {
+
+  console.log(request.body.eventOrganizer)
   // Parse selected categories and colors from the request body
   const selectedCategories = JSON.parse(request.body.selectedCategories || '[]')
 
@@ -39,6 +41,7 @@ exports.event_create_post = (request, respond) => {
     date: request.body.date,
     time: request.body.time,
     description: request.body.description,
+    username: request.body.eventOrganizer,
     location: request.body.location,
     status: request.body.status,
     category: selectedCategories
@@ -207,7 +210,7 @@ exports.event_join_post = (req, res) => {
       // Check if the user has already joined the event
       if (user.event.includes(req.query.eventId)) {
         // Fetch the events and render the event page with a warning message
-        return Event.find().then((events) => {
+        return Event.find() .populate(['category', 'location']).then((events) => {
           return res.render('event/index', { 
             events, // Pass the events to the view
             dayjs,
