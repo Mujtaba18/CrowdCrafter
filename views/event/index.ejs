@@ -1,4 +1,11 @@
 <h1>Events</h1>
+
+<% if (typeof alertMessage !== 'undefined') { %>
+  <div class="alert alert-<%= alertType %>" role="alert">
+    <%= alertMessage %>
+  </div>
+<% } %>
+
 <table class="table table-hover">
     <thead class="table-light">
     <tr>

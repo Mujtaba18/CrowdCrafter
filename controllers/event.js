@@ -190,34 +190,45 @@ exports.event_delete_get = (req, res) => {
 
 // Join Event
 exports.event_join_post = (req, res) => {
-  console.log(req.query.userId)
-  console.log(req.query.eventId)
+  console.log(req.query.userId);
+  console.log(req.query.eventId);
 
   User.findById(req.query.userId)
     .then((user) => {
       if (!user) {
-        throw new Error('User not found')
+        throw new Error('User not found');
       }
 
       // Ensure the 'event' field exists and is an array
       if (!user.event) {
-        user.event = [] // Initialize if undefined
+        user.event = []; // Initialize if undefined
       }
 
-      // // Check if the user has already joined the event
-      // if (user.event.includes(req.query.eventId)) {
-      //     return res.status(400).send("User has already joined this event");
-      // }
+      // Check if the user has already joined the event
+      if (user.event.includes(req.query.eventId)) {
+        // Fetch the events and render the event page with a warning message
+        return Event.find().then((events) => {
+          return res.render('event/index', { 
+            events, // Pass the events to the view
+            dayjs,
+            alertMessage: 'You already joined this event',
+            alertType: 'warning' // Bootstrap warning alert
+          });
+        });
+      }
 
-      user.event.push(req.query.eventId) // Push the new event ID
-      return user.save() // Save the updated user object
+      // If not joined, add the event and save
+      user.event.push(req.query.eventId);
+      return user.save(); // Save the updated user object
     })
-    .then(() => {
-      console.log('User updated with new event')
-      res.redirect('/profile/detail')
+    .then((savedUser) => {
+      if (savedUser) {
+        console.log('User updated with new event');
+        return res.redirect('/profile/detail'); // Only redirect if user is updated
+      }
     })
     .catch((err) => {
-      console.log(err)
-      res.status(500).send('Error occurred while joining the event')
-    })
-}
+      console.log(err);
+      res.status(500).send('Error occurred while joining the event');
+    });
+};
