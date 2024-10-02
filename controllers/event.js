@@ -19,11 +19,15 @@ const { request } = require('http')
 
 // Create - HTTP REQUEST GET AND POST
 exports.event_create_get = (request, respond) => {
+
   //Send the categories information
   Category.find().then((categories) => {
-    respond.render('event/add', { categories })
+      Location.find().then((locations) => {
+          respond.render('event/add', {categories, locations});
+      })
   })
-}
+
+};
 
 exports.event_create_post = (request, respond) => {
   // Parse selected categories and colors from the request body

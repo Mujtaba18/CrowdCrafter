@@ -42,13 +42,19 @@
     <input class="form-control" type="text" value="<%= location.indoor %>" disabled readonly style="width: 50vw;">
 </div>
 <br>
+<hr>
+
 
 <% if (location.locationImages.length > 0){ %>
+
+  <div class="location-images-container">
   <label class="form-label">Location Images </label>
 
+
   <% location.locationImages.forEach(function(image) { %>
-    <img src="/locations/<%= image %>" >
+    <img src="/locations/<%= image %>" class="location-image" >
     <% console.log(image)  %>
 
     <% }) %>
 <% } %>
+</div>

@@ -109,3 +109,42 @@ body{
   cursor: pointer;
 }
 
+.comment-header {
+  display: flex;
+  align-items: center;
+}
+
+.profile-img {
+  margin-right: 10px;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.comment-item {
+  margin-bottom: 20px;
+}
+
+.comment-content {
+  margin-top: 10px;
+}
+
+hr {
+  margin-top: 20px;
+}
+
+.location-images-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adds space between images */
+}
+
+.location-image {
+    width: 250px; /* Adjust the width to make images smaller */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px; /* Adds some space below each image */
+    border-radius: 5px; /* Optional: rounds the corners of the images */
+    object-fit: cover;  /* Ensure images are properly sized within the given width */
+}

@@ -1,19 +1,29 @@
-<h1> <%= event.name %> </h1>
+<h1> <%= event.name %>'s Event </h1>
 
 <div>
-    Date: <%= dayjs(event.date).format('DD/MM/YYYY') %>
+    <label class="form-label">Date</label>
+    <br>
+    <input class="form-control" type="text" value="<%= dayjs(event.date).format('DD/MM/YYYY') %>" disabled readonly style="width: 50vw;">
 </div>
+<br>
 
 <div>
-    Time: <%= event.time %> 
+    <label class="form-label">Time</label>
+    <br>
+    <input class="form-control" type="text" value="<%= event.time %> " disabled readonly style="width: 50vw;">
 </div>
+<br>
 
 <div>
-    Description: <%= event.description %>
+    <label class="form-label">Description</label>
+    <br>
+    <input class="form-control" type="text" value="<%= event.description %>" disabled readonly style="width: 50vw;">
 </div>
+<br>
 
+
+<label class="form-label">Categories</label>
 <div class="categories-container">
-    Categories: 
     <% event.category.forEach(function(category) { %> <!-- event.category is now populated -->
         <div class="category-item">
             <span class="my-category-circle" data-color="<%= category.color %>"></span>
@@ -21,37 +31,38 @@
         </div>
     <% }) %>
 </div>
-<div>
-    Status:
-    <%= event.status %>
-</div>
-<div>
-    Location: 
-    <% event.location.forEach(function(location) { %> <!-- event.location is now populated -->
-            <%= location.names %>
-    <% }) %>
-</div>
 
 <div>
-    Created At: <%= dayjs(event.createdAt).fromNow(true) %> ago
+    <label class="form-label">Status</label>
+    <br>
+    <input class="form-control" type="text" value="<%= event.status %>" disabled readonly style="width: 50vw;">
 </div>
-
+<br>
 <div>
-    Updated At: <%= dayjs(event.updatedAt).fromNow(true) %> ago
-</div>
+    <label class="form-label">Location</label>
+    <br>
+    <div>
 
-<table>
-    <h4>Add Comment</h4>
+        <% event.location.forEach(function(location) { %> <!-- event.location is now populated -->
+                <%= location.names %>
+        <% }) %>
+    </div>
+</div>
+<br>
+<hr>
+
+
+    <h2>Add Comment</h2>
     
     <form method="POST" action="/event/comment">
         <div>
             <label class="form-label">Title</label>
-            <input type="text" name="title">
+            <input type="text" name="title" class="form-control" style="width: 50vw;">
         </div>
     <br>
     <div>
         <label class="form-label">Content</label>
-        <input type="text" name="content">
+        <input type="text" name="content" class="form-control" style="width: 50vw;">
     </div>
     <br>
     <input type="hidden" name="event" value="<%= event.name %>">
@@ -61,35 +72,31 @@
     <input type="hidden" name="id" value="<%= user._id %>">
     <button type="submit" class="btn btn-success">add comment</button>
 </form>
-</table>
-<table>
-    <h3>Comment section</h3>
-    <tr>
-        <th>user name</th>
-        <br>
-        <th>title</th>
-        <br>
-        <th>comment</th>
-        <br>
-        <th>delete comment</th>
-    </tr>
-    <% feedbacks.forEach(function(feedback) { %>
-            <tr>
-                <td>
-                    <%= feedback.userName %>
-                </td>
-                <td>
-                    <%= feedback.title %>
-                </td>
-                <td>
-                    <%= feedback.content %>
-                </td>
-                <td>
-                    <a href="/event/comment/delete?id=<%= feedback._id %>&eventId=<%= event._id %>">delete comment</a>
-                </td>
-            </tr>
+<hr>
 
-            <input type="hidden" name="eventId" value="<%= event._id %>">
-    <% }) %>
-        
-</table>
+<h2>Comment Section</h2>
+
+<% feedbacks.forEach(function(feedback) { %>
+    <div class="comment-item">
+        <div class="comment-header">
+            <!-- Display the user image -->
+            <img src="/uploads/<%= user.profileImage %>" alt="Profile Image" class="profile-img" style="width: 50px; height: 50px; border-radius: 50%;">
+
+            <!-- Display the user name -->
+            <span class="user-name"><%= feedback.userName %></span>
+        </div>
+
+        <!-- Display the comment content -->
+        <div class="comment-content">
+            comment: <%= feedback.content %>
+        </div>
+
+        <!-- Delete comment link -->
+        <div>
+            <a href="/event/comment/delete?id=<%= feedback._id %>&eventId=<%= event._id %>" class="btn btn-outline-danger">Delete</a>
+        </div>
+
+        <!-- Add a horizontal line between comments -->
+        <hr>
+    </div>
+<% }) %>
