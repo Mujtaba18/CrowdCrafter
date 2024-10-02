@@ -55,28 +55,27 @@
     <h2>Add Comment</h2>
     
     <form method="POST" action="/event/comment">
-        <div>
-            <label class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" style="width: 50vw;">
-        </div>
-    <br>
-    <div>
-        <label class="form-label">Content</label>
-        <input type="text" name="content" class="form-control" style="width: 50vw;">
+        <div class="comment-sec">
+        <input type="hidden" name="title" class="form-control" style="width: 50vw;" value="comment">
+        <textarea type="text" name="content" class="form-control" style="width: 50vw;"  rows="2" id="exampleFormControlTextarea1"></textarea>
+        <button type="submit" class="btn btn-success btn-com">
+            <i class="bi bi-send"></i>
+        </button>
+    
     </div>
     <br>
+    
     <input type="hidden" name="event" value="<%= event.name %>">
     <input type="hidden" name="eventId" value="<%= event._id %>">
     <input type="hidden" name="userName" value="<%= user.name %>">
-
     <input type="hidden" name="id" value="<%= user._id %>">
-    <button type="submit" class="btn btn-success">add comment</button>
+    
 </form>
 <hr>
 <% } %>
-
 <h2>Comment Section</h2>
-
+<div class="comment-list">
+<% if (feedbacks.length > 0) { %>
 <% feedbacks.forEach(function(feedback) { %>
     <div class="comment-item">
         <div class="comment-header">
@@ -89,15 +88,21 @@
 
         <!-- Display the comment content -->
         <div class="comment-content">
-            comment: <%= feedback.content %>
-        </div>
+            <p><i class="bi bi-arrow-right-short"></i><%= feedback.content %></p>
+       
 
         <!-- Delete comment link -->
-        <div>
-            <a href="/event/comment/delete?id=<%= feedback._id %>&eventId=<%= event._id %>" class="btn btn-outline-danger">Delete</a>
+       
+            <a href="/event/comment/delete?id=<%= feedback._id %>&eventId=<%= event._id %>" class="btn btn-outline-danger">
+                <i class="bi bi-trash"></i>
+            </a>
         </div>
 
         <!-- Add a horizontal line between comments -->
         <hr>
     </div>
 <% }) %>
+<% } else { %>
+    <p>No comments found.</p>
+    <% } %>
+</div>
