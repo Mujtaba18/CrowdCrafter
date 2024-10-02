@@ -15,8 +15,8 @@ exports.auth_authCallBack_get =
     passport.authenticate(
         'google',
         {
-            successRedirect: '/',
-            failureRedirect: '/article/index'
+            successRedirect: '/event/index',
+            failureRedirect: '/'
         }
     );
 

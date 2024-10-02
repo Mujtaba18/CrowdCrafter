@@ -17,12 +17,13 @@
         <th>Location</th>
         <th>Category</th>
         <th>Status</th>
-        <% if (user.name) { %>
+        <% if (user) { %>
             <th>Edit</th>
             <th>Delete</th>
+            <th>Join</th>
           <% } %>
            
-        <th>Join</th>
+       
     </tr>
     </thead>
     <tbody class="table-group-divider">
@@ -55,6 +56,8 @@
                 </div>
             </td>
             <td><%= event.status %></td>
+
+            <% if (user) { %>
             <% if (user.name == event.username) { %>
                 <% console.log(`event organizer: ${event.username} `) %>
                 <td>
@@ -68,10 +71,13 @@
                 <td></td>
                 <td></td>
                     <% } %>
-  
-              <td>
+                    <% } %>
+
+                    <% if (user) { %>
+                    <td>
                   <a href="/event/join?eventId=<%= event._id %>&userId=<%= user._id %>" class="btn btn-outline-secondary"> Join </a>
-              </td>
+                </td>
+                <% } %>
           </tr>
       <% }) %>
       </tbody>

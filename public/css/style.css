@@ -230,3 +230,25 @@ hr {
   display: flex;
   justify-content: flex-end; /* Ensures the image aligns to the right */
 }
+
+.comment-sec{
+  display: flex;
+  gap: 10px;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+.comment-list {
+  border: 1px solid rgba(0, 0, 0, 0.139);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.btn-com {
+  width: 60px;
+}
