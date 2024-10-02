@@ -1,3 +1,3 @@
 exports.index_get = (request, repsond) => {
-    repsond.render('home')
+    repsond.render('home', { layout: false })
 }

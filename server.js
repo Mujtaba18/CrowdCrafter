@@ -1,14 +1,9 @@
 //Load Dep
-// const session = require('express-session');
 const session = require('express-session')
 const express = require('express')
 const mongoose = require('mongoose')
 const expressLayouts = require('express-ejs-layouts')
-const bodyParser = require('body-parser')
-const fs = require('fs')
-const path = require('path')
-const multer = require('multer')
-const imgSchema = require('./models/Location')
+// const fs = require('fs')
 const passport = require('passport')
 
 //require and initalize dotenv
@@ -37,50 +32,7 @@ app.use(express.static('public'))
 
 app.use('/uploads', express.static('public/uploads'));
 app.use('/locations', express.static('public/locations'));
-// tesing to add a photo code
-mongoose.connect(process.env.MongoDBURL).then(console.log('it works photo'))
-
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads')
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-})
-const upload = multer({ storage: storage })
-
-app.get('/location/add', (req, res) => {
-  imgSchema.find({}).then((data, err) => {
-    if (err) {
-      console.log(err)
-    }
-    res.render('location/add', { items: data })
-  })
-})
-
-app.post('/location/add', upload.single('image'), (req, res) => {
-  let obj = {
-    names: req.body.names,
-    img: {
-      data: fs.readFileSync(
-        path.join(__dirname + '/uploads/' + req.file.filename)
-      ),
-      contentType: 'image/png'
-    }
-  }
-  imgSchema.create(obj).then((err, item) => {
-    if (err) {
-      console.log(err)
-    } else {
-      res.redirect('/location')
-    }
-  })
-})
+app.use('/pictures', express.static('public/pictures'));
 
 // Passport and Sessions Configurations
 app.use(

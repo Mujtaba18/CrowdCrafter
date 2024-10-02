@@ -148,3 +148,70 @@ hr {
     border-radius: 5px; /* Optional: rounds the corners of the images */
     object-fit: cover;  /* Ensure images are properly sized within the given width */
 }
+
+/* Home Page Specific Styles */
+.home-page {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #fdf6ee;
+  height: 100vh;
+}
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.home-left-section {
+  padding: 40px;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.home-left-section h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.home-left-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+.home-btn-join {
+  background-color: #1f4ba5;
+  color: #fff;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: background-color 0.3s;
+}
+
+.home-btn-join:hover {
+  background-color: #003b8e;
+}
+
+.home-right-section img {
+  width: auto;
+  height: 100vh;
+  object-fit: cover;
+  margin-left: 20px;
+  margin-right: -120px;
+}
+
+.home-right-section {
+  width: 50%; /* Adjusts the width of the right section */
+  height: 100vh;
+  display: flex;
+  justify-content: flex-end; /* Ensures the image aligns to the right */
+}
